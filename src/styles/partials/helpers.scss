@@ -1,0 +1,17 @@
+/*Here ONLY styles for helpers, such as .inline-block, .hidden etc.*/
+
+@import "variables.scss";
+@import "mixins.scss";
+
+.table-row {
+  display: table-row;
+  height: 100%;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.inline-block {
+  display: inline-block;
+}

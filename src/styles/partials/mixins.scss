@@ -1,0 +1,13 @@
+/*ONLY mixins here, NO CODE pls*/
+
+@import "variables.scss";
+
+
+
+/*mixin for user avatar.
+Example: @include user-avatar(1);
+*/
+@mixin user-avatar($scale: 1) {
+    width: $avatar-initial-size * $scale;
+    height: $avatar-initial-size * $scale;
+}

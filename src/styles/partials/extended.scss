@@ -1,0 +1,21 @@
+/*Override default rules of all frameworks and libraries here ONLY!*/
+
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss";
+@import "variables.scss";
+@import "mixins.scss";
+
+.navbar {
+  @include box-shadow(0 2px 5px rgba(0,0,0,.25));
+  border: none;
+}
+
+.navbar-default .navbar-nav > li > a {
+  &.active {
+    background-color: $navbar-default-link-active-bg;
+  }
+}
+
+.btn + .btn {
+  margin-left: $button-indent !important;
+}

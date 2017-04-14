@@ -1,0 +1,70 @@
+{
+  "translation": {
+    "Header": {
+      "SignIn": "Sign In",
+      "SignUp": "Sign Up",
+      "MemberMenu": {
+	"MyProfile": "My profile",
+	"ChangePassword": "Change password",
+	"Logout": "Logout"
+      }
+    },
+    "SignUp": {
+      "title": "Sign Up",
+      "phone": {
+	"label": "Phone number",
+	"hints": [
+	  "Please fill out this field",
+	  "Not a valid phone number. Example: +15551234567. Type numbers only."
+	]
+      },
+      "submit": "Sign Up",
+      "errors": {
+	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
+      }
+    },
+    "SignIn": {
+      "title": "Sign In",
+      "phone": {
+	"label": "Phone number",
+	"hints": [
+	  "Please fill out this field",
+	  "Not a valid phone number. Example: +15551234567. Type numbers only."
+	]
+      },
+      "password": {
+	"label": "Password",
+	"hints": [
+	  "Please fill out this field"
+	]
+      },
+      "submit": "Sign In",
+      "errors": {
+	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
+      },
+      "alerts": {
+	"afterSignUp": [
+	  "You are successfully signed up.",
+	  "Please use SMS code as a password to sign in."
+	]
+      }
+    },
+    "Profile": {
+      "editProfile": "Edit",
+      "submit": "Save",
+      "reset": "Cancel",
+      "notAvailable": "Not Available",
+      "status": "Status",
+      "phoneNumber": "Phone number",
+      "profileImage": "Avatar",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "companyName": "Company Name",
+      "email": "E-mail",
+      "type": "Type",
+      "subtype": "Subtype",
+      "activity": "Activity",
+      "tax": "Tax"
+    }
+  }
+}

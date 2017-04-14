@@ -1,0 +1,26 @@
+/*ONLY variables, no code here! */
+
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
+
+/*Bootstrap variables*/
+$icon-font-path: "../../node_modules/bootstrap-sass/assets/fonts/bootstrap/";
+$body-bg: #EEE;
+$navbar-default-bg: #00897B;
+$navbar-border-radius: 0;
+$navbar-default-link-color: #FFF;
+$navbar-default-link-hover-color: $navbar-default-link-color;
+$navbar-default-link-hover-bg: lighten($navbar-default-bg, 10);
+$navbar-default-link-active-bg: $navbar-default-link-hover-bg;
+$navbar-default-link-active-color: $navbar-default-link-color;
+$navbar-default-brand-color: #80CBC4;
+$navbar-default-brand-hover-color: $navbar-default-link-color;
+$navbar-default-brand-hover-bg: $navbar-default-link-hover-bg;
+
+/*Custom variables*/
+$color-light: #FFF;
+$theme-background: $navbar-default-bg;
+$theme-color: #FFF;
+$caret-indent: 5px;
+$button-indent: 5px;
+$avatar-initial-size: 100px;
+$avatar-header-scale: 0.36;
