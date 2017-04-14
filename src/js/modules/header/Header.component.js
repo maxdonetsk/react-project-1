@@ -135,7 +135,7 @@ class Header extends React.Component {
 	  <Nav pullRight>
 	    <NavDropdown eventKey={4} id='user-dropdown' title={this._getDisplayNameAndAvatar()}>
 	      <MenuItem eventKey={4.1} active={location.pathname === Routes.PROFILE}>{i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
-//	      <MenuItem eventKey={4.2} active={location.pathname === Routes.CHANGE_PASSWORD}>{i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>
+	      {/*<MenuItem eventKey={4.2} active={location.pathname === Routes.CHANGE_PASSWORD}>{i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>*/}
 	      <MenuItem eventKey={4.3} onClick={this._logout}>{i18n.t('Header.MemberMenu.Logout')}</MenuItem>
 	      {/*<MenuItem divider />
 	      <MenuItem eventKey={4.3}>Administration</MenuItem>*/}
