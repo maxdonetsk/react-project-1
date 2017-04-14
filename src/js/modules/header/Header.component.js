@@ -7,7 +7,8 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import {NavLink} from 'react-router-dom';
 
 //constants
-import {DEFAULT_LANGUAGE,
+import {PROJECT_NAME,
+	DEFAULT_LANGUAGE,
 	AVAILABLE_LANGUAGES,
 	USER_OBJECT_STORAGE_NAME,
 	Routes} from '../../common/constants/AppConstants';
@@ -125,7 +126,7 @@ class Header extends React.Component {
       <Navbar collapseOnSelect>
 	<Navbar.Header>
 	  <Navbar.Brand>
-	    <NavLink to='/'>Elevator</NavLink>
+	    <NavLink to='/'>{PROJECT_NAME}</NavLink>
 	  </Navbar.Brand>
 	  <Navbar.Toggle />
 	</Navbar.Header>

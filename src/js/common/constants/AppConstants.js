@@ -49,6 +49,7 @@ module.exports = {
     CHANGE_PASSWORD: '/change-password'
   },
 
+  PROJECT_NAME: 'GrainBroker',
   BASE_URL: 'https://api.veles.trade/v1/producer/',
   DEFAULT_LANGUAGE: 'en',
   AVAILABLE_LANGUAGES: ['en', 'ru', 'uk'],
