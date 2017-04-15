@@ -64,5 +64,5 @@ module.exports = {
   USER_OBJECT_STORAGE_NAME: 'user',
   DOMAIN: __DEV__ ? 'localhost' : 'https://producer.veles.trade',
   PATH: '/',
-  SECURE: !__DEV__
+  SECURE: false
 };
