@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "webpack --watch --colors --display-error-details --env.mode development --config webpack.dev.config.js",
     "server:dev": "webpack-dev-server --env.mode development --config webpack.dev.config.js",
-    "server:prod": "webpack-dev-server --env.mode production --config webpack.prod.config.js",
+    "server:prod": "webpack-dev-server --env.mode production --config webpack.prod.config.js --port 8081",
     "build:dev": "webpack --colors --display-error-details --env.mode development --config webpack.dev.config.js",
     "build:prod": "webpack -p --env.mode production --config webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
