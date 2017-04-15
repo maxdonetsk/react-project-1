@@ -1,0 +1,27 @@
+image: node:latest
+
+stages:
+  - build
+  - deploy
+  
+deploy:develop:
+  stage: deploy
+  script:
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(echo "$VT_SERVER_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+    - ssh ubuntu@35.157.107.71 'bash -s' < develop_deploy.sh
+  only:
+    - develop
+
+build:
+  stage: build
+  script:
+   - npm install
+   - npm run build:prod
+  artifacts:
+    untracked: true
+    paths:
+      - binaries/
