@@ -62,7 +62,7 @@ module.exports = {
   AUTHENTICATION_COOKIE_NAME: 'token',
   USER_ID_COOKIE_NAME: 'uuid',
   USER_OBJECT_STORAGE_NAME: 'user',
-  DOMAIN: __DEV__ ? 'localhost' : 'https://producer.veles.trade',
+  DOMAIN: __DEV__ ? 'localhost' : 'producer.veles.trade',
   PATH: '/',
   SECURE: !__DEV__
 };
