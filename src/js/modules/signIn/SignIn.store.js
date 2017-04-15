@@ -153,7 +153,6 @@ SignInStore.dispatchToken = AppDispatcher.register(action => {
     case ActionTypes.SIGN_IN_REQUEST_START:
       fetch(BASE_URL + 'login', {
 	method: 'POST',
-	credentials: 'include',
 	headers: {
 	  'Content-Type': 'application/json',
 	  'Accept-Language': Utils.getBrowserLanguage()
