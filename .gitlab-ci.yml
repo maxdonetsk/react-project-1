@@ -21,7 +21,6 @@ build:
   script:
    - npm install
    - npm run build:prod
-   - npm run server:prod
   artifacts:
     untracked: true
     paths:

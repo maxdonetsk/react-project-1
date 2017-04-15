@@ -7,4 +7,4 @@ git pull origin develop
 
 npm install
 npm run build:prod
-npm run server:prod
+nohup npm run server:prod &
