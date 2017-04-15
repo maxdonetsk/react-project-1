@@ -75,7 +75,12 @@ class Header extends React.Component {
 
   _getDisplayNameAndAvatar() {
     const storageUser = JSON.parse(localStorage.getItem(USER_OBJECT_STORAGE_NAME));
-    let displayName = `+${storageUser.phone}`;
+    let displayName = (
+      <div className='user-dropdown-wrapper'>
+	{`+${storageUser.phone}`}
+	<img src={storageUser.profile.profile_image} alt='' className='user-avatar' />
+      </div>
+    );
 
     if (storageUser.profile.first_name) {
       displayName = (
