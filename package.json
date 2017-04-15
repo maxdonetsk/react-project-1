@@ -1,13 +1,14 @@
 {
-  "name": "react-webpack-template",
-  "version": "0.0.0",
+  "name": "GrainBroker",
+  "version": "0.0.1",
   "description": "",
   "main": "./src/js/app.js",
   "scripts": {
-    "watch": "webpack --watch --colors --display-error-details --env.mode development",
-    "server": "webpack-dev-server --env.mode development",
-    "build:dev": "webpack --colors --display-error-details --env.mode development",
-    "build:prod": "webpack -p --env.mode production",
+    "watch": "webpack --watch --colors --display-error-details --env.mode development --config webpack.dev.config.js",
+    "server:dev": "webpack-dev-server --env.mode development --config webpack.dev.config.js",
+    "server:prod": "webpack-dev-server --env.mode production --config webpack.prod.config.js",
+    "build:dev": "webpack --colors --display-error-details --env.mode development --config webpack.dev.config.js",
+    "build:prod": "webpack -p --env.mode production --config webpack.prod.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

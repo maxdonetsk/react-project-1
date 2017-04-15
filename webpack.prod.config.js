@@ -2,6 +2,9 @@ var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack');
 
 module.exports = function (env) {
+
+  var dev = JSON.stringify(JSON.parse(env.mode === 'development'));
+
   return {
     entry: './src/js/app',
     output: {
@@ -23,11 +26,19 @@ module.exports = function (env) {
 	},
 	{
 	  test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+	  loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=./public_html/[hash].[ext]'
 	},
 	{
-	  test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'file-loader'
+	  test: /\.ttf?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+	  loader: 'url-loader?limit=10000&mimetype=application/x-font-truetype&name=./public_html/[hash].[ext]'
+	},
+	{
+	  test: /\.eot?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+	  loader: 'url-loader?limit=10000&mimetype=application/vnd.ms-fontobject&name=./public_html/[hash].[ext]'
+	},
+	{
+	  test: /\.svg?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+	  loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=./public_html/[hash].[ext]'
 	}
       ]
     },
@@ -36,7 +47,7 @@ module.exports = function (env) {
 	{from: './src/index.html', to: './public_html/index.html'}
       ]),
       new webpack.DefinePlugin({
-	__DEV__: JSON.stringify(JSON.parse(env.mode === 'development'))
+	__DEV__: dev
       })
     ],
     devServer: {
@@ -50,4 +61,4 @@ module.exports = function (env) {
       net: 'empty'
     }
   };
-}
+};
