@@ -10,9 +10,59 @@
   border: none;
 }
 
-.navbar-default .navbar-nav > li > a {
-  &.active {
-    background-color: $navbar-default-link-active-bg;
+.navbar-default .navbar-nav {
+  margin-top: 0;
+  margin-bottom: 0;
+  > li {
+    &.active {
+      > a {
+	background-color: $navbar-default-link-active-bg;
+
+	&#user-dropdown {
+	  background-color: $navbar-default-bg;
+
+	  &:hover, &:focus {
+	    background-color: $navbar-default-link-active-bg;
+	  }
+	}
+      }
+    }
+    > a {
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    .dropdown-menu {
+      padding-top: 0;
+      padding-bottom: 0;
+      border: 0;
+
+      > li > a {
+	padding-top: 8px;
+	padding-bottom: 8px;
+      }
+    }
+  }
+  .open {
+    .dropdown-menu {
+      > li {
+	&.active {
+	  > a {
+	    background-color: lighten($navbar-default-bg, 5);
+
+	    @media (max-width: $grid-float-breakpoint-max) {
+	      background-color: lighten($navbar-default-bg, 5);
+	    }
+	  }
+	}
+
+	> a {
+	  @media (max-width: $grid-float-breakpoint-max) {
+	    padding-top: 8px;
+	    padding-bottom: 8px;
+	  }
+	}
+      }
+    }
   }
 }
 

@@ -44,7 +44,8 @@ module.exports = function (env) {
     },
     plugins: [
       new CopyWebpackPlugin([
-	{from: './src/index.html', to: './public_html/index.html'}
+	{from: './src/index.html', to: './public_html/index.html'},
+	{from: './src/assets', to: './public_html/assets'}
       ]),
       new webpack.DefinePlugin({
 	__DEV__: dev
