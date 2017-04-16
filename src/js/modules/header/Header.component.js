@@ -15,9 +15,11 @@ import {PROJECT_NAME,
 
 // actions
 import LogoutActionCreators from '../logout/Logout.actionCreators';
+import HeaderActionCreators from './Header.actionCreators';
 
 // stores
 import UserStore from '../user/User.store';
+import HeaderStore from './Header.store';
 
 //utils
 import bindAll from 'lodash/bindAll';
@@ -31,16 +33,18 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     bindAll(this, '_onLanguageChange', '_notCurrent', '_onChange', '_logout',
-	    '_getDisplayNameAndAvatar');
+	    '_getDisplayNameAndAvatar', '_getNavbarToggleIcon', '_onNavbarToggleClick');
     this.state = this._getStateFromStores();
   }
 
   componentWillMount() {
     UserStore.addChangeListener(this._onChange);
+    HeaderStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this._onChange);
+    HeaderStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
@@ -49,7 +53,8 @@ class Header extends React.Component {
   
   _getStateFromStores() {
     return {
-      ...UserStore.getState()
+      ...UserStore.getState(),
+      ...HeaderStore.getState()
     };
   }
   
@@ -125,6 +130,24 @@ class Header extends React.Component {
     }
     return displayName;
   }
+  
+  _getNavbarToggleIcon() {
+    return this.state.isNavbarCollapsed ? (
+      <svg className='navbar-icon' preserveAspectRatio='xMinYMin meet' viewBox='0 0 20 20'>
+	  <path d='M17.5 6h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+	  <path d='M17.5 11h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+	  <path d='M17.5 16h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+      </svg>
+    ) : (
+      <svg className='navbar-icon' preserveAspectRatio='xMinYMin meet' viewBox='0 0 20 20'>
+	  <path d='M10.707 10.5l5.646-5.646c0.195-0.195 0.195-0.512 0-0.707s-0.512-0.195-0.707 0l-5.646 5.646-5.646-5.646c-0.195-0.195-0.512-0.195-0.707 0s-0.195 0.512 0 0.707l5.646 5.646-5.646 5.646c-0.195 0.195-0.195 0.512 0 0.707 0.098 0.098 0.226 0.146 0.354 0.146s0.256-0.049 0.354-0.146l5.646-5.646 5.646 5.646c0.098 0.098 0.226 0.146 0.354 0.146s0.256-0.049 0.354-0.146c0.195-0.195 0.195-0.512 0-0.707l-5.646-5.646z'></path>
+      </svg>
+    );
+  }
+  
+  _onNavbarToggleClick() {
+    HeaderActionCreators.changeNavbarToogleIcon(this.state.isNavbarCollapsed);
+  }
 
   render() {
     return (
@@ -133,7 +156,7 @@ class Header extends React.Component {
 	  <Navbar.Brand>
 	    <NavLink to='/'>{PROJECT_NAME}</NavLink>
 	  </Navbar.Brand>
-	  <Navbar.Toggle />
+	  <Navbar.Toggle children={this._getNavbarToggleIcon()} onClick={this._onNavbarToggleClick} />
 	</Navbar.Header>
 	<Navbar.Collapse>
 	  {this.state.isLoggedIn ? (

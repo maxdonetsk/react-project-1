@@ -28,6 +28,11 @@ module.exports = {
      * Logout
      */
     LOGOUT: null,
+
+    /**
+     * Header
+     */
+    CHANGE_NAVBAR_TOGGLE_ICON: null,
     
     /**
      * User

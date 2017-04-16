@@ -3,10 +3,10 @@ import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
 class HeaderActionCreators {
 
-  changeLanguage(language) {
+  changeNavbarToogleIcon(isNavbarCollapsed) {
     AppDispatcher.dispatch({
-      type: ActionTypes.APP_LANGUAGE_CHANGED,
-      path
+      type: ActionTypes.CHANGE_NAVBAR_TOGGLE_ICON,
+      isNavbarCollapsed
     });
   }
 }
