@@ -1,10 +1,12 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
+
+//react-bootstrap
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import {NavLink} from 'react-router-dom';
 
 //constants
 import {PROJECT_NAME,
@@ -25,6 +27,7 @@ import HeaderStore from './Header.store';
 import bindAll from 'lodash/bindAll';
 import i18n from '../../utils/i18n';
 import Utils from '../../utils/Utils';
+import History from '../../utils/History';
 
 let currentLanguage = Utils.getBrowserLanguage();
 
@@ -72,6 +75,11 @@ class Header extends React.Component {
   _logout(event) {
     event.preventDefault();
     LogoutActionCreators.logout();
+  }
+  
+  _goMyProfile(event) {
+    event.preventDefault();
+    History.push(Routes.MYPROFILE);
   }
   
   _notCurrent(language) {
@@ -162,9 +170,17 @@ class Header extends React.Component {
 	  {this.state.isLoggedIn ? (
 	  <Nav pullRight>
 	    <NavDropdown eventKey={4} id='user-dropdown' title={this._getDisplayNameAndAvatar()}>
-	      <MenuItem eventKey={4.1} active={location.pathname === Routes.PROFILE}>{i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
+	      <MenuItem
+		eventKey={4.1}
+		active={location.pathname === Routes.MYPROFILE}
+		href={Routes.MYPROFILE}
+		onClick={this._goMyProfile}>
+		  {i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
 	      {/*<MenuItem eventKey={4.2} active={location.pathname === Routes.CHANGE_PASSWORD}>{i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>*/}
-	      <MenuItem eventKey={4.3} onClick={this._logout}>{i18n.t('Header.MemberMenu.Logout')}</MenuItem>
+	      <MenuItem
+		eventKey={4.3}
+		onClick={this._logout}>
+		  {i18n.t('Header.MemberMenu.Logout')}</MenuItem>
 	      {/*<MenuItem divider />
 	      <MenuItem eventKey={4.3}>Administration</MenuItem>*/}
 	    </NavDropdown>

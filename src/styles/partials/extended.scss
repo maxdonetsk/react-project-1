@@ -5,6 +5,12 @@
 @import "variables.scss";
 @import "mixins.scss";
 
+.container {
+  @media (max-width: $screen-xs-max) {
+    width: 100%;
+  }
+}
+
 .navbar {
   @include box-shadow(0 2px 5px rgba(0,0,0,.25));
   border: none;
@@ -66,6 +72,7 @@
       }
     }
   }
+
   .navbar-toggle {
     padding: 8px 12px;
     border: 0;
@@ -88,7 +95,8 @@
 
   .navbar-collapse {
     border-width: 0;
-    
+    box-shadow: none;
+
     &.collapsing {
       @include transition-duration($fast);
     }

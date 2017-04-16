@@ -50,12 +50,14 @@ module.exports = {
   Routes: {
     SIGNIN: '/sign-in',
     SIGNUP: '/sign-up',
-    PROFILE: '/profile',
-    CHANGE_PASSWORD: '/change-password'
+    MYPROFILE: '/myprofile',
+    CHANGE_PASSWORD: '/change-password',
+    FAQ: '/faq'
   },
 
   PROJECT_NAME: 'GrainBroker',
   BASE_URL: 'https://api.veles.trade/v1/producer/',
+  BASE_URL_PUBLIC: 'https://api.veles.trade/v1/public/',
   DEFAULT_LANGUAGE: 'en',
   AVAILABLE_LANGUAGES: ['en', 'ru', 'uk'],
   CHANGE_EVENT: 'change',

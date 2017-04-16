@@ -9,6 +9,8 @@ import Header from '../../modules/header/Header.component';
 import SignUp from '../../modules/signUp/SignUp.component';
 import SignIn from '../../modules/signIn/SignIn.component';
 import Profile from '../../modules/user/Profile.component';
+import Footer from '../../modules/footer/Footer.component';
+import FAQ from '../../modules/faq/FAQ.component';
 
 //stores
 import UserStore from '../../modules/user/User.store';
@@ -20,7 +22,9 @@ import Utils from '../../utils/Utils';
 
 let isLoggedIn = Utils.isLoggedIn();
 
-isLoggedIn ? History.replace(Routes.PROFILE) : History.replace(Routes.SIGNIN);
+if (!isLoggedIn) {
+  History.replace(Routes.SIGNIN);
+}
 
 class App extends React.Component {
 
@@ -50,30 +54,34 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className='height-100'>
+      <div className='app-view'>
         <Header />
-        {this.props.children}
+	{this.props.children}
 	<Route path={Routes.SIGNIN} render={() => (
 	  this.state.isLoggedIn ? (
-	    <Redirect to={Routes.PROFILE} />
+	    <Redirect to={Routes.MYPROFILE} />
 	  ) : (
 	    <SignIn />
 	  )
 	)} />
 	<Route path={Routes.SIGNUP} render={() => (
 	  this.state.isLoggedIn ? (
-	    <Redirect to={Routes.PROFILE} />
+	    <Redirect to={Routes.MYPROFILE} />
 	  ) : (
 	    <SignUp />
 	  )
 	)} />
-	<Route path={Routes.PROFILE} render={() => (
+	<Route path={Routes.MYPROFILE} render={() => (
 	  this.state.isLoggedIn ? (
 	    <Profile />
 	  ) : (
 	    <Redirect to={Routes.SIGNIN} />
 	  )
 	)} />
+	<Route path={Routes.FAQ} render={() => (
+	  <FAQ />  
+	)} />
+	<Footer />
       </div>
     );
   }

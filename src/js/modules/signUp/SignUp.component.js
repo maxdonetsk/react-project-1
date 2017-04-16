@@ -68,7 +68,7 @@ class SignUp extends React.Component {
     const isEnabled = phone.isValid;
     const hasServerResponse = this.state.hasServerResponse;
     return (
-      <Grid>
+      <Grid className='flex-1'>
 	<Row className='text-center'>
 	  <h1>{i18n.t('SignUp.title')}</h1>
 	</Row>

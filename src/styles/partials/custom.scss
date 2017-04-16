@@ -6,6 +6,18 @@
 @import "mixins.scss";
 
 
+/*** App ***/
+#app {
+  height: 100%;
+
+  .app-view {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+/*** End of App ***/
+
 /*** Loaders ***/
 .ball-pulse {
   > div {
@@ -129,3 +141,14 @@
   }
 }
 /*** End of Profile ***/
+
+
+
+/*** Footer ***/
+#footer {
+  .footer-column {
+    padding-left:  floor(($grid-gutter-width / 2));
+    padding-right: ceil(($grid-gutter-width / 2));
+  }
+}
+/*** End of Footer ***/

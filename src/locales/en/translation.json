@@ -65,6 +65,9 @@
       "subtype": "Subtype",
       "activity": "Activity",
       "tax": "Tax"
+    },
+    "Footer": {
+      "FAQ": "FAQ"
     }
   }
 }

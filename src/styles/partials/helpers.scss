@@ -3,13 +3,9 @@
 @import "variables.scss";
 @import "mixins.scss";
 
-.table-row {
-  display: table-row;
-  height: 100%;
-}
 
-.height-100 {
-  height: 100%;
+.flex-1 {
+  flex: 1;
 }
 
 .inline-block {

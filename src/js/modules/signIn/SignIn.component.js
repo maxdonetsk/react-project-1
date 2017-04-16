@@ -73,7 +73,7 @@ class SignIn extends React.Component {
     const isEnabled = phone.isValid && password.isValid;
     const hasServerResponse = this.state.hasServerResponse;
     return (
-	<Grid>
+	<Grid className='flex-1'>
 	  <Row className='text-center'>
 	    <Col md={6} mdOffset={3}>
 	      <h1>{i18n.t('SignIn.title')}</h1>

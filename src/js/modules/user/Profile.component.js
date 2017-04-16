@@ -147,7 +147,7 @@ class Profile extends React.Component {
     const editProfileMode = this.state.editProfileMode;
     const user = this.state.user;
     return (
-	<Grid className='profile'>
+	<Grid className='profile flex-1'>
 	  <Row>
 	    <Col xs={12}>
 	      <Breadcrumb>
@@ -398,11 +398,6 @@ class Profile extends React.Component {
 		      </Form>
 		    </Col>
 		  </Row>
-		
-		
-		
-		
-		  
 		</div>
 	      </div>
 	    </Col>
