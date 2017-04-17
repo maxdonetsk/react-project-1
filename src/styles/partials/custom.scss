@@ -19,6 +19,13 @@
 /*** End of App ***/
 
 /*** Loaders ***/
+.loading-theme {
+  .ball-pulse {
+    > div {
+      background-color: $theme-background;
+    }
+  }
+}
 .ball-pulse {
   > div {
     background-color: $color-light;
@@ -132,8 +139,7 @@
 .profile {
   .profile-panel {
     .panel-heading {
-      font-weight: 700;
-      font-size: 1.7em;
+      @include default-panel-heading();
     }
   }
   .profile-avatar {
@@ -144,11 +150,73 @@
 
 
 
+/*** FAQ ***/
+.faq {
+  .faq-panel {
+    .panel-heading {
+      @include default-panel-heading();
+    }
+  }
+}
+
+#usertypes-filter {
+  display: none;
+
+  + ul {
+    left: auto;
+    right: 0;
+  }
+
+  .usertypes-filter-title {
+    padding-left: 5px;
+    display: none;
+    @media (min-width: 400px) {
+      display: inline;
+    }
+  }
+}
+
+.faq-question-answer-wrapper {
+  &:not(:last-of-type) {
+    margin-bottom: 10px;
+  }
+  .faq-question {
+    font-weight: 700;
+  }
+}
+/*** End of FAQ ***/
+
+
 /*** Footer ***/
 #footer {
   .footer-column {
     padding-left:  floor(($grid-gutter-width / 2));
     padding-right: ceil(($grid-gutter-width / 2));
+    width: 100%;
+    text-align: center;
+
+    &:nth-of-type(1) {
+      @media (min-width: $screen-sm-min) {
+	width: 30%;
+	text-align: left;
+	margin-bottom: 0;
+      }
+    }
+
+    &:nth-of-type(2) {
+      @media (min-width: $screen-sm-min) {
+	width: 70%;
+	text-align: left;
+      }
+    }
+
+    .footer-link-item {
+      display: inline-block;
+      margin: 10px 10px 0;
+      @media (min-width: $screen-sm-min) {
+	margin: 0 10px 0;
+      }
+    }
   }
 }
 /*** End of Footer ***/

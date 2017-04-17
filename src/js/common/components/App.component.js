@@ -22,8 +22,11 @@ import Utils from '../../utils/Utils';
 
 let isLoggedIn = Utils.isLoggedIn();
 
-if (!isLoggedIn) {
+if ((!isLoggedIn) && (location.pathname !== Routes.FAQ)) {
   History.replace(Routes.SIGNIN);
+}
+if (isLoggedIn && location.pathname === '/') {
+  History.replace(Routes.MYPROFILE);
 }
 
 class App extends React.Component {

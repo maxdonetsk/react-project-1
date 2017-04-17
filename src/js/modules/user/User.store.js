@@ -4,9 +4,10 @@ import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 //constants
 import {ActionTypes,
 	CHANGE_EVENT,
-	BASE_URL,
+	BASE_PRIVATE_URL,
 	AUTHENTICATION_COOKIE_NAME,
-	USER_OBJECT_STORAGE_NAME} from '../../common/constants/AppConstants';
+	USER_OBJECT_STORAGE_NAME,
+	Routes} from '../../common/constants/AppConstants';
       
 //actions
 import ProfileActionCreators from './Profile.actionCreators';
@@ -44,7 +45,7 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
   },
 
   updateCurrentUser(authParam, data, file) {
-    let url = BASE_URL + 'profile-image';
+    let url = BASE_PRIVATE_URL + 'profile-image';
 
     let body = new FormData();
     body.append('profile_image', file);
@@ -59,7 +60,7 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
     };
 
     if (!file) {
-      url = BASE_URL + 'profile';
+      url = BASE_PRIVATE_URL + 'profile';
       body = JSON.stringify(data);
       options = {
 	method: 'PUT',
@@ -99,7 +100,7 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       _state.isLoggedIn = Utils.isLoggedIn();
       localStorage.clear();
       UserStore.emitChange();
-      location.replace('/sign-in');
+      location.replace(Routes.SIGNIN);
       break;
 
     case ActionTypes.GET_CURRENT_USER_PROFILE:
@@ -109,7 +110,6 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_REQUEST_START:
-      action;
       const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
       UserStore.updateCurrentUser(authParam, action.data, action.file);
       _state.loading = true;
@@ -117,10 +117,6 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_SUCCESS:
-//      _state.loading = false;
-//      _state.editProfileMode = false;
-//      _state.userAvatarPreview = null;
-//      _state.user = action.data;
       localStorage.setItem(USER_OBJECT_STORAGE_NAME, JSON.stringify(action.data));
       _state = _getInitialState();
       UserStore.emitChange();

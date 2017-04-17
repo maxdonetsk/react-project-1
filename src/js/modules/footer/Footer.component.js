@@ -31,7 +31,9 @@ class Footer extends React.Component {
 		    &copy; {`${PROJECT_NAME}, ${new Date().getFullYear()}`}
 		  </div>
 		  <div className='footer-column pull-left'>
-		    <NavLink to={Routes.FAQ}>{i18n.t('Footer.FAQ')}</NavLink>
+		    <div className='footer-link-item'>
+		      <NavLink to={Routes.FAQ}>{i18n.t('Footer.FAQ')}</NavLink>
+		    </div>
 		  </div>
 		</Row>
 	      </Panel>

@@ -21,23 +21,26 @@
     margin-top: 0;
     margin-bottom: 0;
     > li {
-      &.active {
-	> a {
+      padding: 0;
+
+      > a {
+	background-color: $navbar-default-bg;
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+	&.active {
 	  background-color: $navbar-default-link-active-bg;
+	}
 
-	  &#user-dropdown {
-	    background-color: $navbar-default-bg;
+	&#user-dropdown {
+	  background-color: $navbar-default-bg;
 
-	    &:hover, &:focus {
-	      background-color: $navbar-default-link-active-bg;
-	    }
+	  &:hover, &:focus {
+	    background-color: $navbar-default-link-active-bg;
 	  }
 	}
       }
-      > a {
-	padding-top: 15px;
-	padding-bottom: 15px;
-      }
+
       .dropdown-menu {
 	padding-top: 0;
 	padding-bottom: 0;

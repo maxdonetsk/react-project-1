@@ -33,7 +33,6 @@ class ProfileActionCreators {
   }
 
   onUpdateCurrentUserProfileFail(data) {
-    debugger;
     AppDispatcher.dispatch({
       type: ActionTypes.UPDATE_CURRENT_USER_PROFILE_FAIL,
       data

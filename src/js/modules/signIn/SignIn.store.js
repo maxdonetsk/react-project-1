@@ -4,7 +4,7 @@ import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 //constants
 import {ActionTypes,
 	CHANGE_EVENT,
-	BASE_URL,
+	BASE_PRIVATE_URL,
 	AUTHENTICATION_COOKIE_NAME,
 	USER_ID_COOKIE_NAME,
 	PATH,
@@ -116,7 +116,7 @@ let SignInStore = Object.assign({}, EventEmitter.prototype, {
    },
 
    getCurrentUser(authParam) {
-    fetch(BASE_URL + 'profile', {
+    fetch(BASE_PRIVATE_URL + 'profile', {
       method: 'GET',
       headers: {
 	'Accept-Language': Utils.getBrowserLanguage(),
@@ -151,7 +151,7 @@ SignInStore.dispatchToken = AppDispatcher.register(action => {
       break;
       
     case ActionTypes.SIGN_IN_REQUEST_START:
-      fetch(BASE_URL + 'login', {
+      fetch(BASE_PRIVATE_URL + 'login', {
 	method: 'POST',
 	headers: {
 	  'Content-Type': 'application/json',

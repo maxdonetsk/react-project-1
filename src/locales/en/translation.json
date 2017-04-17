@@ -66,6 +66,9 @@
       "activity": "Activity",
       "tax": "Tax"
     },
+    "FAQ": {
+      "NoData": "No Data..."
+    },
     "Footer": {
       "FAQ": "FAQ"
     }

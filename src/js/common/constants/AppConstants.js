@@ -43,7 +43,17 @@ module.exports = {
     UPDATE_CURRENT_USER_PROFILE_FAIL: null,
     EDIT_PROFILE_BUTTON_CLICK: null,
     EDIT_PROFILE_FIELD_CHANGE: null,
-    CHANGE_USER_AVATAR_PREVIEW: null
+    CHANGE_USER_AVATAR_PREVIEW: null,
+    GET_USER_TYPES_REQUST_START: null,
+    GET_USER_TYPES_SUCCESS: null,
+    GET_USER_TYPES_FAIL: null,
+    
+    /**
+     * FAQ
+     */
+    GET_FAQ_REQUEST_START: null,
+    GET_FAQ_SUCCESS: null,
+    GET_FAQ_FAIL: null
     
   }),
   
@@ -56,11 +66,15 @@ module.exports = {
   },
 
   PROJECT_NAME: 'GrainBroker',
-  BASE_URL: 'https://api.veles.trade/v1/producer/',
-  BASE_URL_PUBLIC: 'https://api.veles.trade/v1/public/',
+  BASE_PRIVATE_URL: 'https://api.veles.trade/v1/producer/',
+  BASE_PUBLIC_URL: 'https://api.veles.trade/v1/public/',
   DEFAULT_LANGUAGE: 'en',
   AVAILABLE_LANGUAGES: ['en', 'ru', 'uk'],
   CHANGE_EVENT: 'change',
+  UserTypes: {
+    DEFAULT: 7,
+    GENERIC: 999
+  },
 
   /*
    * Session data

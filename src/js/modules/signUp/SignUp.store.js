@@ -3,7 +3,7 @@ import {EventEmitter} from 'events';
 //constants
 import {ActionTypes,
 	CHANGE_EVENT,
-	BASE_URL,
+	BASE_PRIVATE_URL,
 	Routes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
@@ -103,7 +103,7 @@ SignUpStore.dispatchToken = AppDispatcher.register(action => {
       
     case ActionTypes.SIGN_UP_REQUEST_START:
       _state.loading = true;
-      fetch(BASE_URL + 'sign-up', {
+      fetch(BASE_PRIVATE_URL + 'sign-up', {
 	method: 'POST',
 	headers: {
 	  'Content-Type': 'application/json',
