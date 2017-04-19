@@ -36,7 +36,8 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     bindAll(this, '_onLanguageChange', '_notCurrent', '_onChange', '_logout',
-	    '_getDisplayNameAndAvatar', '_getNavbarToggleIcon', '_onNavbarToggleClick');
+	    '_handleMenuItemSelect', '_getDisplayNameAndAvatar',
+	    '_getNavbarToggleIcon', '_onNavbarToggleClick');
     this.state = this._getStateFromStores();
   }
 
@@ -53,14 +54,14 @@ class Header extends React.Component {
   _onChange() {
     this.setState(this._getStateFromStores);
   }
-  
+
   _getStateFromStores() {
     return {
       ...UserStore.getState(),
       ...HeaderStore.getState()
     };
   }
-  
+
   _onLanguageChange(event) {
     if (event.target.name) {
       i18n.changeLanguage(event.target.name, (err, t) => {
@@ -71,17 +72,17 @@ class Header extends React.Component {
       });
     }
   }
-  
+
   _logout(event) {
     event.preventDefault();
     LogoutActionCreators.logout();
   }
-  
-  _goMyProfile(event) {
+
+  _handleMenuItemSelect(event) {
     event.preventDefault();
-    History.push(Routes.MYPROFILE);
+    History.replace(event.target.name);
   }
-  
+
   _notCurrent(language) {
     return language !== currentLanguage;
   }
@@ -138,7 +139,7 @@ class Header extends React.Component {
     }
     return displayName;
   }
-  
+
   _getNavbarToggleIcon() {
     return this.state.isNavbarCollapsed ? (
       <svg className='navbar-icon' preserveAspectRatio='xMinYMin meet' viewBox='0 0 20 20'>
@@ -152,7 +153,7 @@ class Header extends React.Component {
       </svg>
     );
   }
-  
+
   _onNavbarToggleClick() {
     HeaderActionCreators.changeNavbarToogleIcon(this.state.isNavbarCollapsed);
   }
@@ -173,10 +174,15 @@ class Header extends React.Component {
 	      <MenuItem
 		eventKey={4.1}
 		active={location.pathname === Routes.MYPROFILE}
-		href={Routes.MYPROFILE}
-		onClick={this._goMyProfile}>
+		name={Routes.MYPROFILE}
+		onClick={this._handleMenuItemSelect}>
 		  {i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
-	      {/*<MenuItem eventKey={4.2} active={location.pathname === Routes.CHANGE_PASSWORD}>{i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>*/}
+	      <MenuItem
+		eventKey={4.2}
+		active={location.pathname === Routes.CHANGE_PASSWORD}
+		name={Routes.CHANGE_PASSWORD}
+		onClick={this._handleMenuItemSelect}>
+		  {i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>
 	      <MenuItem
 		eventKey={4.3}
 		onClick={this._logout}>

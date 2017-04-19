@@ -33,7 +33,7 @@ module.exports = {
      * Header
      */
     CHANGE_NAVBAR_TOGGLE_ICON: null,
-    
+
     /**
      * User
      */
@@ -47,16 +47,23 @@ module.exports = {
     GET_USER_TYPES_REQUST_START: null,
     GET_USER_TYPES_SUCCESS: null,
     GET_USER_TYPES_FAIL: null,
-    
+
     /**
      * FAQ
      */
     GET_FAQ_REQUEST_START: null,
     GET_FAQ_SUCCESS: null,
-    GET_FAQ_FAIL: null
-    
+    GET_FAQ_FAIL: null,
+
+    /**
+     * Change password
+     */
+    CHANGE_PASSWORD_FIELD_CHANGE: null,
+    CHANGE_PASSWORD_REQUEST_START: null,
+    CHANGE_PASSWORD_SUCCESS: null,
+    CHANGE_PASSWORD_FAIL: null
   }),
-  
+
   Routes: {
     SIGNIN: '/sign-in',
     SIGNUP: '/sign-up',

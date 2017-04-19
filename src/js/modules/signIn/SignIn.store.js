@@ -78,7 +78,7 @@ let SignInStore = Object.assign({}, EventEmitter.prototype, {
   
   validate(fieldName) {
     const field = _state.fields.find((item) => item.name === fieldName);
-    let value = Object.create(null);
+    let value = {};
     let schema = {};
     value[field.name] = field.value;
     schema[field.name] = _schema[field.name];

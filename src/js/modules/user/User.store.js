@@ -123,8 +123,6 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_FAIL:
-      action.data;
-      debugger;
       _state.loading = false;
       UserStore.emitChange();
       break;

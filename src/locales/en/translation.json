@@ -66,6 +66,36 @@
       "activity": "Activity",
       "tax": "Tax"
     },
+    "ChangePassword": {
+      "title": "Change Password",
+      "old_password": {
+	"label": "Current password",
+	"hints": [
+	  "Please fill out this field"
+	]
+      },
+      "password": {
+	"label": "New password",
+	"hints": [
+	  "Please fill out this field",
+	  "Password should contain minimum 4 symbols"
+	]
+      },
+      "password_repeat": {
+	"label": "Password confirmation",
+	"hints": [
+	  "Please fill out this field",
+	  "Password should contain minimum 4 symbols",
+	  "Password confirmation must match new password"
+	]
+      },
+      "submit": "Change password",
+      "alerts": {
+	"afterPasswordUpdate": [
+	  "Your password has been changed."
+	]
+      }
+    },
     "FAQ": {
       "NoData": "No Data..."
     },
