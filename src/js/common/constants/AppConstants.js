@@ -65,6 +65,8 @@ module.exports = {
   }),
 
   Routes: {
+    DEFAULT_ROUTE_FOR_MEMBER: '/myprofile',
+    DEFAULT_ROUTE_FOR_GUEST: '/sign-in',
     SIGNIN: '/sign-in',
     SIGNUP: '/sign-up',
     MYPROFILE: '/myprofile',

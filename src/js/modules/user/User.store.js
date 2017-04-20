@@ -100,7 +100,7 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       _state.isLoggedIn = Utils.isLoggedIn();
       localStorage.clear();
       UserStore.emitChange();
-      location.replace(Routes.SIGNIN);
+      location.replace(Routes.DEFAULT_ROUTE_FOR_GUEST);
       break;
 
     case ActionTypes.GET_CURRENT_USER_PROFILE:

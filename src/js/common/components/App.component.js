@@ -24,10 +24,10 @@ import Utils from '../../utils/Utils';
 let isLoggedIn = Utils.isLoggedIn();
 
 if ((!isLoggedIn) && (location.pathname !== Routes.FAQ)) {
-  History.replace(Routes.SIGNIN);
+  History.replace(Routes.DEFAULT_ROUTE_FOR_GUEST);
 }
 if (isLoggedIn && location.pathname === '/') {
-  History.replace(Routes.MYPROFILE);
+  History.replace(Routes.DEFAULT_ROUTE_FOR_MEMBER);
 }
 
 class App extends React.Component {
@@ -63,14 +63,14 @@ class App extends React.Component {
 	{this.props.children}
 	<Route path={Routes.SIGNIN} render={() => (
 	  this.state.isLoggedIn ? (
-	    <Redirect to={Routes.MYPROFILE} />
+	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_MEMBER} />
 	  ) : (
 	    <SignIn />
 	  )
 	)} />
 	<Route path={Routes.SIGNUP} render={() => (
 	  this.state.isLoggedIn ? (
-	    <Redirect to={Routes.MYPROFILE} />
+	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_MEMBER} />
 	  ) : (
 	    <SignUp />
 	  )
@@ -79,14 +79,14 @@ class App extends React.Component {
 	  this.state.isLoggedIn ? (
 	    <Profile />
 	  ) : (
-	    <Redirect to={Routes.SIGNIN} />
+	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
 	  )
 	)} />
 	<Route path={Routes.CHANGE_PASSWORD} render={() => (
 	  this.state.isLoggedIn ? (
 	    <ChangePassword />
 	  ) : (
-	    <Redirect to={Routes.SIGNIN} />
+	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
 	  )
 	)} />
 	<Route path={Routes.FAQ} render={() => (

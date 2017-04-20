@@ -163,7 +163,7 @@ class Header extends React.Component {
       <Navbar collapseOnSelect>
 	<Navbar.Header>
 	  <Navbar.Brand>
-	    <NavLink to={this.state.isLoggedIn ? Routes.MYPROFILE : Routes.SIGNIN}>{PROJECT_NAME}</NavLink>
+	    <NavLink to={this.state.isLoggedIn ? Routes.DEFAULT_ROUTE_FOR_MEMBER : Routes.DEFAULT_ROUTE_FOR_GUEST}>{PROJECT_NAME}</NavLink>
 	  </Navbar.Brand>
 	  <Navbar.Toggle children={this._getNavbarToggleIcon()} onClick={this._onNavbarToggleClick} />
 	</Navbar.Header>

@@ -129,7 +129,7 @@ let SignInStore = Object.assign({}, EventEmitter.prototype, {
       if (response.status === 200) {
 	ProfileActionCreators.getCurrentUserProfile(data);
 	SignInActionCreators.onSignInSuccess();
-	History.replace(Routes.MYPROFILE);
+	History.replace(Routes.DEFAULT_ROUTE_FOR_MEMBER);
       }
     }).catch((error) => {
       console.error(error);
