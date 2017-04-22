@@ -5,7 +5,7 @@
       "SignUp": "Sign Up",
       "MemberMenu": {
 	"MyProfile": "My profile",
-	"ChangePassword": "Change password",
+	"UpdatePassword": "Change password",
 	"Logout": "Logout"
       }
     },
@@ -66,7 +66,7 @@
       "activity": "Activity",
       "tax": "Tax"
     },
-    "ChangePassword": {
+    "UpdatePassword": {
       "title": "Change Password",
       "old_password": {
 	"label": "Current password",

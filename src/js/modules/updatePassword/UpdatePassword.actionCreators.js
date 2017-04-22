@@ -1,35 +1,35 @@
 import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
-class ChangePasswordActionCreators {
+class UpdatePasswordActionCreators {
 
   changeField(field, value) {
     AppDispatcher.dispatch({
-      type: ActionTypes.CHANGE_PASSWORD_FIELD_CHANGE,
+      type: ActionTypes.UPDATE_PASSWORD_FIELD_CHANGE,
       field,
       value
     });
   }
 
-  changePassword(data) {
+  updatePassword(data) {
     AppDispatcher.dispatch({
-      type: ActionTypes.CHANGE_PASSWORD_REQUEST_START,
+      type: ActionTypes.UPDATE_PASSWORD_REQUEST_START,
       data
     });
   }
 
-  onChangePasswordSuccess() {
+  onUpdatePasswordSuccess() {
     AppDispatcher.dispatch({
-      type: ActionTypes.CHANGE_PASSWORD_SUCCESS
+      type: ActionTypes.UPDATE_PASSWORD_SUCCESS
     });
   }
 
-  onChangePasswordFail(data) {
+  onUpdatePasswordFail(data) {
     AppDispatcher.dispatch({
-      type: ActionTypes.CHANGE_PASSWORD_FAIL,
+      type: ActionTypes.UPDATE_PASSWORD_FAIL,
       data
     });
   }
 }
 
-export default new ChangePasswordActionCreators();
+export default new UpdatePasswordActionCreators();

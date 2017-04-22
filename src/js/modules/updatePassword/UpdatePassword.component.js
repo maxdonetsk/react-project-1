@@ -18,16 +18,16 @@ import Alert from 'react-bootstrap/lib/Alert';
 import Loading from '../../common/components/Loading.component';
 
 // actions
-import ChangePasswordActionCreators from './ChangePassword.actionCreators';
+import UpdatePasswordActionCreators from './UpdatePassword.actionCreators';
 
 // stores
-import ChangePasswordStore from './ChangePassword.store';
+import UpdatePasswordStore from './UpdatePassword.store';
 
 //utils
 import bindAll from 'lodash/bindAll';
 import i18n from '../../utils/i18n';
 
-class ChangePassword extends React.Component {
+class UpdatePassword extends React.Component {
 
   constructor(props) {
     super(props);
@@ -36,11 +36,11 @@ class ChangePassword extends React.Component {
   }
   
   componentWillMount() {
-    ChangePasswordStore.addChangeListener(this._onChange);
+    UpdatePasswordStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    ChangePasswordStore.removeChangeListener(this._onChange);
+    UpdatePasswordStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
@@ -49,12 +49,12 @@ class ChangePassword extends React.Component {
   
   _getStateFromStores() {
     return {
-      ...ChangePasswordStore.getState()
+      ...UpdatePasswordStore.getState()
     };
   }
 
   _handleFieldChange(event) {
-    ChangePasswordActionCreators.changeField(event.target.name, event.target.value);
+    UpdatePasswordActionCreators.changeField(event.target.name, event.target.value);
   }
   
   _handleSubmit(event) {
@@ -67,7 +67,7 @@ class ChangePassword extends React.Component {
       password: password.value,
       password_repeat: password_repeat.value
     };
-    ChangePasswordActionCreators.changePassword(data);
+    UpdatePasswordActionCreators.updatePassword(data);
   }
 
   render() {
@@ -80,10 +80,10 @@ class ChangePassword extends React.Component {
       <Grid className='flex-1'>
 	<Row className='text-center'>
 	  <Col md={6} mdOffset={3}>
-	    <h1>{i18n.t('ChangePassword.title')}</h1>
+	    <h1>{i18n.t('UpdatePassword.title')}</h1>
 	    {(this.state.alert.isVisible && this.state.alert.type === 'password-changed') &&
 	      <Alert bsStyle='success'>
-		<h4>{i18n.t('ChangePassword.alerts.afterPasswordUpdate.0')}</h4>
+		<h4>{i18n.t('UpdatePassword.alerts.afterPasswordUpdate.0')}</h4>
 	      </Alert>
 	    }
 	  </Col>
@@ -115,7 +115,7 @@ class ChangePassword extends React.Component {
 	      ))}
 	      <div className='text-right'>
 		<Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
-		  {this.state.loading ? <Loading /> : i18n.t('ChangePassword.submit')}
+		  {this.state.loading ? <Loading /> : i18n.t('UpdatePassword.submit')}
 		</Button>
 	      </div>
 	    </Form>
@@ -127,4 +127,4 @@ class ChangePassword extends React.Component {
   }
 }
 
-export default ChangePassword;
+export default UpdatePassword;

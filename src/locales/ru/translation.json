@@ -5,7 +5,7 @@
       "SignUp": "Регистрация",
       "MemberMenu": {
 	"MyProfile": "Мой профиль",
-	"ChangePassword": "Изменить пароль",
+	"UpdatePassword": "Изменить пароль",
 	"Logout": "Выйти"
       }
     },
@@ -66,7 +66,7 @@
       "activity": "Вид деятельности",
       "tax": "Налог"
     },
-    "ChangePassword": {
+    "UpdatePassword": {
       "title": "Изменить пароль",
       "old_password": {
 	"label": "Текущий пароль",

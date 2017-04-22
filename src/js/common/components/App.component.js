@@ -9,7 +9,7 @@ import Header from '../../modules/header/Header.component';
 import SignUp from '../../modules/signUp/SignUp.component';
 import SignIn from '../../modules/signIn/SignIn.component';
 import Profile from '../../modules/user/Profile.component';
-import ChangePassword from '../../modules/changePassword/ChangePassword.component';
+import UpdatePassword from '../../modules/updatePassword/UpdatePassword.component';
 import Footer from '../../modules/footer/Footer.component';
 import FAQ from '../../modules/faq/FAQ.component';
 
@@ -82,9 +82,9 @@ class App extends React.Component {
 	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
 	  )
 	)} />
-	<Route path={Routes.CHANGE_PASSWORD} render={() => (
+	<Route path={Routes.UPDATE_PASSWORD} render={() => (
 	  this.state.isLoggedIn ? (
-	    <ChangePassword />
+	    <UpdatePassword />
 	  ) : (
 	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
 	  )

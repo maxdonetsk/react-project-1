@@ -5,7 +5,7 @@
       "SignUp": "Реєстрація",
       "MemberMenu": {
 	"MyProfile": "Мій профіль",
-	"ChangePassword": "Змінити пароль",
+	"UpdatePassword": "Змінити пароль",
 	"Logout": "Вийти"
       }
     },
@@ -66,7 +66,7 @@
       "activity": "Вид діяльності",
       "tax": "Податок"
     },
-    "ChangePassword": {
+    "UpdatePassword": {
       "title": "Змінити пароль",
       "old_password": {
 	"label": "Поточний пароль",

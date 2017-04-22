@@ -58,10 +58,10 @@ module.exports = {
     /**
      * Change password
      */
-    CHANGE_PASSWORD_FIELD_CHANGE: null,
-    CHANGE_PASSWORD_REQUEST_START: null,
-    CHANGE_PASSWORD_SUCCESS: null,
-    CHANGE_PASSWORD_FAIL: null
+    UPDATE_PASSWORD_FIELD_CHANGE: null,
+    UPDATE_PASSWORD_REQUEST_START: null,
+    UPDATE_PASSWORD_SUCCESS: null,
+    UPDATE_PASSWORD_FAIL: null
   }),
 
   Routes: {
@@ -70,7 +70,7 @@ module.exports = {
     SIGNIN: '/sign-in',
     SIGNUP: '/sign-up',
     MYPROFILE: '/myprofile',
-    CHANGE_PASSWORD: '/change-password',
+    UPDATE_PASSWORD: '/update-password',
     FAQ: '/faq'
   },
 

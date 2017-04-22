@@ -9,7 +9,7 @@ import {ActionTypes,
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
 // actions
-import ChangePasswordActionCreators from './ChangePassword.actionCreators';
+import UpdatePasswordActionCreators from './UpdatePassword.actionCreators';
 
 //utils
 import Joi from 'joi';
@@ -30,8 +30,8 @@ function _getInitialState() {
       name: 'old_password',
       type: 'password',
       value: '',
-      label: 'ChangePassword.old_password.label',
-      placeholder: 'ChangePassword.old_password.label',
+      label: 'UpdatePassword.old_password.label',
+      placeholder: 'UpdatePassword.old_password.label',
       isValid: false,
       validationState: null,
       hint: null
@@ -40,8 +40,8 @@ function _getInitialState() {
       name: 'password',
       type: 'password',
       value: '',
-      label: 'ChangePassword.password.label',
-      placeholder: 'ChangePassword.password.label',
+      label: 'UpdatePassword.password.label',
+      placeholder: 'UpdatePassword.password.label',
       isValid: false,
       validationState: null,
       hint: null
@@ -50,8 +50,8 @@ function _getInitialState() {
       name: 'password_repeat',
       type: 'password',
       value: '',
-      label: 'ChangePassword.password_repeat.label',
-      placeholder: 'ChangePassword.password_repeat.label',
+      label: 'UpdatePassword.password_repeat.label',
+      placeholder: 'UpdatePassword.password_repeat.label',
       isValid: false,
       validationState: null,
       hint: null
@@ -67,7 +67,7 @@ function _getInitialState() {
 
 let _state = _getInitialState();
 
-let ChangePasswordStore = Object.assign({}, EventEmitter.prototype, {
+let UpdatePasswordStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },
@@ -103,30 +103,30 @@ let ChangePasswordStore = Object.assign({}, EventEmitter.prototype, {
 	switch (field.name) {
 	  case 'old_password':
 	    if (err.details[0].type === 'any.empty') {
-	      field.hint = 'ChangePassword.old_password.hints.0';
+	      field.hint = 'UpdatePassword.old_password.hints.0';
 	    }
 	    field.validationState = 'error';
 	    break;
 
 	  case 'password':
 	    if (err.details[0].type === 'any.empty') {
-	      field.hint = 'ChangePassword.password.hints.0';
+	      field.hint = 'UpdatePassword.password.hints.0';
 	    }
 	    if (err.details[0].type === 'string.min') {
-	      field.hint = 'ChangePassword.password.hints.1';
+	      field.hint = 'UpdatePassword.password.hints.1';
 	    }
 	    field.validationState = 'error';
 	    break;
 
 	  case 'password_repeat':
 	    if (err.details[0].type === 'any.empty') {
-	      field.hint = 'ChangePassword.password_repeat.hints.0';
+	      field.hint = 'UpdatePassword.password_repeat.hints.0';
 	    }
 	    if (err.details[0].type === 'string.min') {
-	      field.hint = 'ChangePassword.password_repeat.hints.1';
+	      field.hint = 'UpdatePassword.password_repeat.hints.1';
 	    }
 	    if (err.details[0].type === 'any.allowOnly') {
-	      field.hint = 'ChangePassword.password_repeat.hints.2';
+	      field.hint = 'UpdatePassword.password_repeat.hints.2';
 	    }
 	    field.validationState = 'error';
 	    break;
@@ -141,23 +141,23 @@ let ChangePasswordStore = Object.assign({}, EventEmitter.prototype, {
    }
 });
 
-ChangePasswordStore.dispatchToken = AppDispatcher.register(action => {
+UpdatePasswordStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.type) {
-    case ActionTypes.CHANGE_PASSWORD_FIELD_CHANGE:
+    case ActionTypes.UPDATE_PASSWORD_FIELD_CHANGE:
       if (action.field === 'password') {
 	newPassword = action.value;
       }
       _state.fields.forEach((item) => {
 	if (item.name === action.field) {
 	  item.value = action.value;
-	  ChangePasswordStore.validate(item.name);
+	  UpdatePasswordStore.validate(item.name);
 	}
       });
       _state.hasServerResponse = false;
-      ChangePasswordStore.emitChange();
+      UpdatePasswordStore.emitChange();
       break;
       
-    case ActionTypes.CHANGE_PASSWORD_REQUEST_START:
+    case ActionTypes.UPDATE_PASSWORD_REQUEST_START:
       const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
       _state.loading = true;
       fetch(BASE_PRIVATE_URL + 'update-password', {
@@ -172,7 +172,7 @@ ChangePasswordStore.dispatchToken = AppDispatcher.register(action => {
 	return response.json();
       }).then((response) => {
 	if (response.status === 200) {
-	  ChangePasswordActionCreators.onChangePasswordSuccess();
+	  UpdatePasswordActionCreators.onUpdatePasswordSuccess();
 	}
 	if (response.status === 422) {
 	  response.data.forEach((item) => {
@@ -182,16 +182,16 @@ ChangePasswordStore.dispatchToken = AppDispatcher.register(action => {
 	      hint: item.message,
 	      validationState: 'error'
 	    };
-	    ChangePasswordActionCreators.onChangePasswordFail(data);
+	    UpdatePasswordActionCreators.onUpdatePasswordFail(data);
 	  });
 	}
       }).catch((error) => {
 	console.error(error);
       });
-      ChangePasswordStore.emitChange();
+      UpdatePasswordStore.emitChange();
       break;
 
-    case ActionTypes.CHANGE_PASSWORD_FAIL:
+    case ActionTypes.UPDATE_PASSWORD_FAIL:
       _state.fields.forEach((item) => {
 	if (item.name === action.data.field) {
 	  item.validationState = action.data.validationState;
@@ -200,14 +200,14 @@ ChangePasswordStore.dispatchToken = AppDispatcher.register(action => {
       });
       _state.loading = false;
       _state.hasServerResponse = true;
-      ChangePasswordStore.emitChange();
+      UpdatePasswordStore.emitChange();
       break;
 
-    case ActionTypes.CHANGE_PASSWORD_SUCCESS:
+    case ActionTypes.UPDATE_PASSWORD_SUCCESS:
       _state = _getInitialState();
       _state.alert.type = 'password-changed'
       _state.alert.isVisible = true;
-      ChangePasswordStore.emitChange();
+      UpdatePasswordStore.emitChange();
       break;
 
     default:
@@ -216,4 +216,4 @@ ChangePasswordStore.dispatchToken = AppDispatcher.register(action => {
 
 });
 
-export default ChangePasswordStore;
+export default UpdatePasswordStore;

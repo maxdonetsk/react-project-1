@@ -179,10 +179,10 @@ class Header extends React.Component {
 		  {i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
 	      <MenuItem
 		eventKey={4.2}
-		active={location.pathname === Routes.CHANGE_PASSWORD}
-		name={Routes.CHANGE_PASSWORD}
+		active={location.pathname === Routes.UPDATE_PASSWORD}
+		name={Routes.UPDATE_PASSWORD}
 		onClick={this._handleMenuItemSelect}>
-		  {i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>
+		  {i18n.t('Header.MemberMenu.UpdatePassword')}</MenuItem>
 	      <MenuItem
 		eventKey={4.3}
 		onClick={this._logout}>
