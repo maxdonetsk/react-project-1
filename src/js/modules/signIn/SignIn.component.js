@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 //react-bootstrap
 import Panel from 'react-bootstrap/lib/Panel';
@@ -13,6 +14,9 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 import Alert from 'react-bootstrap/lib/Alert';
+
+//constants
+import {Routes} from '../../common/constants/AppConstants';
 
 //components
 import Loading from '../../common/components/Loading.component';
@@ -138,6 +142,7 @@ class SignIn extends React.Component {
 		    </div>
 		  ))}
 		  <div className='text-right'>
+		    <Link to={Routes.RESTORE_PASSWORD} className='btn btn-link'>{i18n.t('SignIn.links.RestorePassword')}</Link>
 		    <Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
 		      {this.state.loading ? <Loading /> : i18n.t('SignIn.submit')}
 		    </Button>

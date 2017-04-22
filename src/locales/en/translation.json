@@ -47,6 +47,9 @@
 	  "You are successfully signed up.",
 	  "Please use SMS code as a password to sign in."
 	]
+      },
+      "links": {
+	"RestorePassword": "Forgot password?"
       }
     },
     "Profile": {
@@ -94,6 +97,20 @@
 	"afterPasswordUpdate": [
 	  "Your password has been changed."
 	]
+      }
+    },
+    "RestorePassword": {
+      "title": "Restore password",
+      "phone": {
+	"label": "Phone number",
+	"hints": [
+	  "Please fill out this field",
+	  "Not a valid phone number. Example: +15551234567. Type numbers only."
+	]
+      },
+      "submit": "Restore password",
+      "errors": {
+	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
       }
     },
     "FAQ": {

@@ -56,12 +56,20 @@ module.exports = {
     GET_FAQ_FAIL: null,
 
     /**
-     * Change password
+     * Update password
      */
     UPDATE_PASSWORD_FIELD_CHANGE: null,
     UPDATE_PASSWORD_REQUEST_START: null,
     UPDATE_PASSWORD_SUCCESS: null,
-    UPDATE_PASSWORD_FAIL: null
+    UPDATE_PASSWORD_FAIL: null,
+    
+    /**
+     * Restore password
+     */
+    RESTORE_PASSWORD_FIELD_CHANGE: null,
+    RESTORE_PASSWORD_REQUEST_START: null,
+    RESTORE_PASSWORD_FAIL: null,
+    RESTORE_PASSWORD_SUCCESS: null
   }),
 
   Routes: {
@@ -71,6 +79,7 @@ module.exports = {
     SIGNUP: '/sign-up',
     MYPROFILE: '/myprofile',
     UPDATE_PASSWORD: '/update-password',
+    RESTORE_PASSWORD: '/restore-password',
     FAQ: '/faq'
   },
 

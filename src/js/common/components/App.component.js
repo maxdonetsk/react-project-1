@@ -10,6 +10,7 @@ import SignUp from '../../modules/signUp/SignUp.component';
 import SignIn from '../../modules/signIn/SignIn.component';
 import Profile from '../../modules/user/Profile.component';
 import UpdatePassword from '../../modules/updatePassword/UpdatePassword.component';
+import RestorePassword from '../../modules/restorePassword/RestorePassword.component';
 import Footer from '../../modules/footer/Footer.component';
 import FAQ from '../../modules/faq/FAQ.component';
 
@@ -87,6 +88,13 @@ class App extends React.Component {
 	    <UpdatePassword />
 	  ) : (
 	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
+	  )
+	)} />
+	<Route path={Routes.RESTORE_PASSWORD} render={() => (
+	  this.state.isLoggedIn ? (
+	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_MEMBER} />
+	  ) : (
+	    <RestorePassword />
 	  )
 	)} />
 	<Route path={Routes.FAQ} render={() => (
