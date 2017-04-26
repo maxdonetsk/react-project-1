@@ -24,7 +24,10 @@ import Utils from '../../utils/Utils';
 
 let isLoggedIn = Utils.isLoggedIn();
 
-if ((!isLoggedIn) && (location.pathname !== Routes.FAQ)) {
+if ((!isLoggedIn) && (location.pathname !== Routes.SIGNIN &&
+		      location.pathname !== Routes.SIGNUP &&
+		      location.pathname !== Routes.RESTORE_PASSWORD &&
+		      location.pathname !== Routes.FAQ)) {
   History.replace(Routes.DEFAULT_ROUTE_FOR_GUEST);
 }
 if (isLoggedIn && location.pathname === '/') {

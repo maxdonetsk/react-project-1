@@ -10,7 +10,8 @@ import {ActionTypes,
 	PATH,
 	DOMAIN,
 	SECURE,
-	Routes} from '../../common/constants/AppConstants';
+	Routes,
+	Alerts} from '../../common/constants/AppConstants';
       
 //actions
 import SignInActionCreators from './SignIn.actionCreators';
@@ -214,7 +215,24 @@ SignInStore.dispatchToken = AppDispatcher.register(action => {
 	  SignInStore.validate(item.name);
 	}
       });
-      _state.alert.type = 'sign-up-success'
+      _state.alert.type = Alerts.SIGN_UP_SUCCESS
+      _state.alert.isVisible = true;
+      SignInStore.emitChange();
+      break;
+
+      case ActionTypes.RESTORE_PASSWORD_SUCCESS:
+      _state.fields.forEach((item) => {
+	const inner = action.data.find((obj) => item.name === obj.field);
+	if (item.name === inner.field) {
+	  item.value = inner.value;
+	  item.hint = inner.hint;
+	  item.validationState = inner.validationState;
+	}
+	if (item.name === 'phone') {
+	  SignInStore.validate(item.name);
+	}
+      });
+      _state.alert.type = Alerts.RESTORE_PASSWORD_SUCCESS
       _state.alert.isVisible = true;
       SignInStore.emitChange();
       break;

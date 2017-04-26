@@ -130,6 +130,7 @@ RestorePasswordStore.dispatchToken = AppDispatcher.register(action => {
 	    }
 	  ];
 	  RestorePasswordActionCreators.onRestorePasswordSuccess(data);
+	  History.push(Routes.SIGNIN);
 	}
 	if (response.status === 422) {
 	  response.data.forEach((item) => {

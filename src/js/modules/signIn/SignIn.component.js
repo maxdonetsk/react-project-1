@@ -16,7 +16,7 @@ import Button from 'react-bootstrap/lib/Button';
 import Alert from 'react-bootstrap/lib/Alert';
 
 //constants
-import {Routes} from '../../common/constants/AppConstants';
+import {Routes, Alerts} from '../../common/constants/AppConstants';
 
 //components
 import Loading from '../../common/components/Loading.component';
@@ -81,10 +81,16 @@ class SignIn extends React.Component {
 	  <Row className='text-center'>
 	    <Col md={6} mdOffset={3}>
 	      <h1>{i18n.t('SignIn.title')}</h1>
-	      {(this.state.alert.isVisible && this.state.alert.type === 'sign-up-success') &&
+	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.SIGN_UP_SUCCESS) &&
 		<Alert bsStyle='success'>
 		  <h4>{i18n.t('SignIn.alerts.afterSignUp.0')}</h4>
 		  <p>{i18n.t('SignIn.alerts.afterSignUp.1')}</p>
+		</Alert>
+	      }
+	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.RESTORE_PASSWORD_SUCCESS) &&
+		<Alert bsStyle='success'>
+		  <h4>{i18n.t('SignIn.alerts.afterPasswordRestore.0')}</h4>
+		  <p>{i18n.t('SignIn.alerts.afterPasswordRestore.1')}</p>
 		</Alert>
 	      }
 	    </Col>

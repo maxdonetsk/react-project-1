@@ -83,6 +83,11 @@ module.exports = {
     FAQ: '/faq'
   },
 
+  Alerts: {
+    SIGN_UP_SUCCESS: 'sign-up-success',
+    RESTORE_PASSWORD_SUCCESS: 'restore-password-success'
+  },
+
   PROJECT_NAME: 'GrainBroker',
   BASE_PRIVATE_URL: 'https://api.veles.trade/v1/producer/',
   BASE_PUBLIC_URL: 'https://api.veles.trade/v1/public/',

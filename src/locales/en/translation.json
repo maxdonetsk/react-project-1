@@ -46,6 +46,10 @@
 	"afterSignUp": [
 	  "You are successfully signed up.",
 	  "Please use SMS code as a password to sign in."
+	],
+	"afterPasswordRestore": [
+	  "You password has been restored.",
+	  "Please use SMS code as a password to sign in."
 	]
       },
       "links": {
