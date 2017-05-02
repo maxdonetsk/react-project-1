@@ -18,6 +18,43 @@
 }
 /*** End of App ***/
 
+
+
+/*** Flash messages ***/
+.flash-message {
+  font-size: 14px;
+  font-weight: normal;
+  vertical-align: middle;
+  opacity: 0;
+  -webkit-animation: fadeInOut 3s linear forwards;
+  animation: fadeInOut 3s linear forwards;
+  &.success {
+    color: $brand-success;
+  }
+  &.error {
+    color: $brand-warning;
+  }
+}
+
+.btn + .flash-message, .flash-message + .btn {
+  margin-left: 10px;
+}
+
+@-webkit-keyframes fadeInOut {
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  90% { opacity: 0; }
+}
+
+@keyframes fadeInOut {
+  10% { opacity: 1; }
+  80% { opacity: 1; }
+  90% { opacity: 0; }
+}
+/*** End of Flash messages ***/
+
+
+
 /*** Loaders ***/
 .loading-theme {
   .ball-pulse {
@@ -147,6 +184,24 @@
   }
 }
 /*** End of Profile ***/
+
+
+
+/*** Locations of loading ***/
+.locations-of-loading {
+  .locations-of-loading-panel {
+    .panel-heading {
+      @include default-panel-heading();
+    }
+  }
+
+  table > tbody > tr {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+/*** Locations of loading ***/
 
 
 

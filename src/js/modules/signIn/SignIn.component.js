@@ -83,14 +83,14 @@ class SignIn extends React.Component {
 	      <h1>{i18n.t('SignIn.title')}</h1>
 	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.SIGN_UP_SUCCESS) &&
 		<Alert bsStyle='success'>
-		  <h4>{i18n.t('SignIn.alerts.afterSignUp.0')}</h4>
-		  <p>{i18n.t('SignIn.alerts.afterSignUp.1')}</p>
+		  <h4>{i18n.t('Alerts.afterSignUp.success.0')}</h4>
+		  <p>{i18n.t('Alerts.afterSignUp.success.1')}</p>
 		</Alert>
 	      }
 	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.RESTORE_PASSWORD_SUCCESS) &&
 		<Alert bsStyle='success'>
-		  <h4>{i18n.t('SignIn.alerts.afterPasswordRestore.0')}</h4>
-		  <p>{i18n.t('SignIn.alerts.afterPasswordRestore.1')}</p>
+		  <h4>{i18n.t('Alerts.afterPasswordRestore.success.0')}</h4>
+		  <p>{i18n.t('Alerts.afterPasswordRestore.success.1')}</p>
 		</Alert>
 	      }
 	    </Col>

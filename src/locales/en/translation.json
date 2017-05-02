@@ -7,7 +7,8 @@
 	"MyProfile": "My profile",
 	"UpdatePassword": "Change password",
 	"Logout": "Logout"
-      }
+      },
+      "LocationsOfLoading": "Locations of loading"
     },
     "SignUp": {
       "title": "Sign Up",
@@ -42,16 +43,6 @@
       "errors": {
 	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
       },
-      "alerts": {
-	"afterSignUp": [
-	  "You are successfully signed up.",
-	  "Please use SMS code as a password to sign in."
-	],
-	"afterPasswordRestore": [
-	  "You password has been restored.",
-	  "Please use SMS code as a password to sign in."
-	]
-      },
       "links": {
 	"RestorePassword": "Forgot password?"
       }
@@ -72,6 +63,77 @@
       "subtype": "Subtype",
       "activity": "Activity",
       "tax": "Tax"
+    },
+    "LocationsOfLoading": {
+      "header": "List of locations of loading",
+      "table": {
+	"name": "Name",
+	"dailyCapacity": "Daily capacity (tons)",
+	"loadingType": "Loading type",
+	"hasScales": "Scales",
+	"badWeatherLoading": "Bad weather",
+	"restrictionsForTransport": "Transport restrictions"
+      },
+      "fields": {
+	"name": {
+	  "label": "Name",
+	  "hints": [
+	    "Please fill out this field"
+	  ]
+	},
+	"dailyCapacity": {
+	  "label": "Daily capacity (tons)",
+	  "hints": [
+	    "Minimal allowed value is 0.1"
+	  ]
+	},
+	"loadingType": {
+	  "label": "Loading type"
+	},
+	"hasScales": {
+	  "label": "Location of loading has scales"
+	},
+	"badWeatherLoading": {
+	  "label": "Loading in bad weather is available"
+	},
+	"restrictionsForTransport": {
+	  "label": "Transport restrictions (if available)"
+	}
+      },
+      "addLocation": "Add Location",
+      "save": "Save",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "NoData": [
+	"You don't have any location of loading yet.",
+	"Add a new one"
+      ],
+      "flashMessages": {
+	"added": {
+	  "success": "Added",
+	  "fail": "Failed to add"
+	},
+	"updated": {
+	  "success": "Updated",
+	  "fail": "Failed to update"
+	},
+	"deleted": {
+	  "success": "Deleted",
+	  "fail": "Failed to delete"
+	}
+      },
+      "modals": {
+	"delete": {
+	  "title": "Delete this location?",
+	  "body": [
+	    "ID: {{id}}",
+	    "Name: {{name}}"
+	  ],
+	  "decline": "No",
+	  "confirm": "Yes"
+	}
+      }
     },
     "UpdatePassword": {
       "title": "Change Password",
@@ -96,12 +158,7 @@
 	  "Password confirmation must match new password"
 	]
       },
-      "submit": "Change password",
-      "alerts": {
-	"afterPasswordUpdate": [
-	  "Your password has been changed."
-	]
-      }
+      "submit": "Change password"
     },
     "RestorePassword": {
       "title": "Restore password",
@@ -122,6 +179,25 @@
     },
     "Footer": {
       "FAQ": "FAQ"
+    },
+    "Alerts": {
+      "afterSignUp": {
+	"success": [
+	  "You are successfully signed up.",
+	  "Please use SMS code as a password to sign in."
+	]
+      },
+      "afterPasswordUpdate": {
+	"success": [
+	  "Your password has been changed."
+	]
+      },
+      "afterPasswordRestore": {
+	"success": [
+	  "You password has been restored.",
+	  "Please use SMS code as a password to sign in."
+	]
+      }
     }
   }
 }

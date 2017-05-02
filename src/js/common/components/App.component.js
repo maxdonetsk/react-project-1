@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Redirect} from 'react-router';
+import {Switch, Route, Redirect} from 'react-router';
 
 //constants
 import {Routes} from '../../common/constants/AppConstants';
@@ -8,6 +8,8 @@ import {Routes} from '../../common/constants/AppConstants';
 import Header from '../../modules/header/Header.component';
 import SignUp from '../../modules/signUp/SignUp.component';
 import SignIn from '../../modules/signIn/SignIn.component';
+import LocationsOfLoading from '../../modules/locationsOfLoading/LocationsOfLoading.component';
+import LocationOfLoading from '../../modules/locationsOfLoading/LocationOfLoading.component';
 import Profile from '../../modules/user/Profile.component';
 import UpdatePassword from '../../modules/updatePassword/UpdatePassword.component';
 import RestorePassword from '../../modules/restorePassword/RestorePassword.component';
@@ -86,6 +88,22 @@ class App extends React.Component {
 	    <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
 	  )
 	)} />
+	<Switch>
+	  <Route exact path={Routes.LOCATIONS_OF_LOADING} render={() => (
+	    this.state.isLoggedIn ? (
+	      <LocationsOfLoading />
+	    ) : (
+	      <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
+	    )
+	  )} />
+	  <Route path={Routes.LOCATION_OF_LOADING_WITH_ID} render={({match}) => (
+	    this.state.isLoggedIn ? (
+	      <LocationOfLoading id={match.params.id} />
+	    ) : (
+	      <Redirect to={Routes.DEFAULT_ROUTE_FOR_GUEST} />
+	    )
+	  )} />
+	</Switch>
 	<Route path={Routes.UPDATE_PASSWORD} render={() => (
 	  this.state.isLoggedIn ? (
 	    <UpdatePassword />

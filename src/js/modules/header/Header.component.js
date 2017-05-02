@@ -167,8 +167,11 @@ class Header extends React.Component {
 	  </Navbar.Brand>
 	  <Navbar.Toggle children={this._getNavbarToggleIcon()} onClick={this._onNavbarToggleClick} />
 	</Navbar.Header>
+	{this.state.isLoggedIn ? (
 	<Navbar.Collapse>
-	  {this.state.isLoggedIn ? (
+	  <Nav>
+	    <li><NavLink to={Routes.LOCATIONS_OF_LOADING} activeClassName='active'>{i18n.t('Header.LocationsOfLoading')}</NavLink></li>
+	  </Nav>
 	  <Nav pullRight>
 	    <NavDropdown eventKey={4} id='user-dropdown' title={this._getDisplayNameAndAvatar()}>
 	      <MenuItem
@@ -183,12 +186,11 @@ class Header extends React.Component {
 		name={Routes.UPDATE_PASSWORD}
 		onClick={this._handleMenuItemSelect}>
 		  {i18n.t('Header.MemberMenu.UpdatePassword')}</MenuItem>
+	      <MenuItem divider />
 	      <MenuItem
 		eventKey={4.3}
 		onClick={this._logout}>
 		  {i18n.t('Header.MemberMenu.Logout')}</MenuItem>
-	      {/*<MenuItem divider />
-	      <MenuItem eventKey={4.3}>Administration</MenuItem>*/}
 	    </NavDropdown>
 	    <NavDropdown eventKey={4} id='languages-dropdown' title={currentLanguage.toUpperCase()}>
 	      {AVAILABLE_LANGUAGES.filter(this._notCurrent).map((language, index) => (
@@ -196,7 +198,9 @@ class Header extends React.Component {
 	      ))}
 	    </NavDropdown>
 	  </Nav>
-	  ) : (
+	</Navbar.Collapse>
+	) : (
+	<Navbar.Collapse>
 	  <Nav pullRight>
 	    <li><NavLink to={Routes.SIGNIN} activeClassName='active'>{i18n.t('Header.SignIn')}</NavLink></li>
 	    <li><NavLink to={Routes.SIGNUP} activeClassName='active'>{i18n.t('Header.SignUp')}</NavLink></li>
@@ -206,8 +210,8 @@ class Header extends React.Component {
               ))}
 	    </NavDropdown>
 	  </Nav>
-	    )}
 	</Navbar.Collapse>
+	)}
       </Navbar>
     );
   }

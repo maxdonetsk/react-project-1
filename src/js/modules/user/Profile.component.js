@@ -118,7 +118,6 @@ class Profile extends React.Component {
     event.preventDefault();
     const data = JSON.parse(localStorage.getItem(USER_OBJECT_STORAGE_NAME));
     ProfileActionCreators.getCurrentUserProfile(data);
-    this.setState({editProfileMode: false});
   }
 
   _getDisplayName() {

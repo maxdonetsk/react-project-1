@@ -44,6 +44,10 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
     return _state;
   },
 
+  getUserInfo() {
+    return _state.user;
+  },
+
   updateCurrentUser(authParam, data, file) {
     let url = BASE_PRIVATE_URL + 'profile-image';
 
@@ -89,6 +93,8 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
 });
 
 UserStore.dispatchToken = AppDispatcher.register(action => {
+  const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
+
   switch (action.type) {
 
     case ActionTypes.SIGN_IN_SUCCESS:
@@ -105,12 +111,12 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
 
     case ActionTypes.GET_CURRENT_USER_PROFILE:
       _state.user = action.data;
+      _state.editProfileMode = false;
       localStorage.setItem(USER_OBJECT_STORAGE_NAME, JSON.stringify(action.data));
       UserStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_REQUEST_START:
-      const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
       UserStore.updateCurrentUser(authParam, action.data, action.file);
       _state.loading = true;
       UserStore.emitChange();

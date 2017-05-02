@@ -83,43 +83,43 @@ class UpdatePassword extends React.Component {
 	    <h1>{i18n.t('UpdatePassword.title')}</h1>
 	    {(this.state.alert.isVisible && this.state.alert.type === 'password-changed') &&
 	      <Alert bsStyle='success'>
-		<h4>{i18n.t('UpdatePassword.alerts.afterPasswordUpdate.0')}</h4>
+		<h4>{i18n.t('Alerts.afterPasswordUpdate.success.0')}</h4>
 	      </Alert>
 	    }
 	  </Col>
 	</Row>
 	<Row>
 	  <Col md={6} mdOffset={3}>
-	  <Panel>
-	    <Form onSubmit={this._handleSubmit}>
-	      {this.state.fields.map((field, index) => (
-		<FormGroup
-		  key={index}
-		  controlId={field.name}
-		  validationState={field.validationState}>
-		  <ControlLabel>{i18n.t(field.label)}</ControlLabel>
-		    <FormControl
-		      type={field.type}
-		      value={field.value}
-		      name={i18n.t(field.name)}
-		      placeholder={i18n.t(field.placeholder)}
-		      onChange={event => this._handleFieldChange(event)} />
-		  <FormControl.Feedback />
-		  <HelpBlock>{hasServerResponse ? (
-		      field.hint
-		    ) : (
-		      i18n.t(field.hint)
-		    )}
-		  </HelpBlock>
-		</FormGroup>
-	      ))}
-	      <div className='text-right'>
-		<Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
-		  {this.state.loading ? <Loading /> : i18n.t('UpdatePassword.submit')}
-		</Button>
-	      </div>
-	    </Form>
-	  </Panel>
+	    <Panel>
+	      <Form onSubmit={this._handleSubmit}>
+		{this.state.fields.map((field, index) => (
+		  <FormGroup
+		    key={index}
+		    controlId={field.name}
+		    validationState={field.validationState}>
+		    <ControlLabel>{i18n.t(field.label)}</ControlLabel>
+		      <FormControl
+			type={field.type}
+			value={field.value}
+			name={i18n.t(field.name)}
+			placeholder={i18n.t(field.placeholder)}
+			onChange={event => this._handleFieldChange(event)} />
+		    <FormControl.Feedback />
+		    <HelpBlock>{hasServerResponse ? (
+			field.hint
+		      ) : (
+			i18n.t(field.hint)
+		      )}
+		    </HelpBlock>
+		  </FormGroup>
+		))}
+		<div className='text-right'>
+		  <Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
+		    {this.state.loading ? <Loading /> : i18n.t('UpdatePassword.submit')}
+		  </Button>
+		</div>
+	      </Form>
+	    </Panel>
 	  </Col>
 	</Row>
       </Grid>

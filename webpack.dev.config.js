@@ -26,19 +26,19 @@ module.exports = function (env) {
 	},
 	{
 	  test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+	  loader: 'url-loader?limit=10000&mimetype=application/font-woff&name=./[hash].[ext]'
 	},
 	{
 	  test: /\.ttf?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'url-loader?limit=10000&mimetype=application/x-font-truetype'
+	  loader: 'url-loader?limit=10000&mimetype=application/x-font-truetype&name=./[hash].[ext]'
 	},
 	{
 	  test: /\.eot?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'url-loader?limit=10000&mimetype=application/vnd.ms-fontobject'
+	  loader: 'url-loader?limit=10000&mimetype=application/vnd.ms-fontobject&name=./[hash].[ext]'
 	},
 	{
 	  test: /\.svg?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-	  loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+	  loader: 'url-loader?limit=10000&mimetype=image/svg+xml&name=./[hash].[ext]'
 	}
       ]
     },
@@ -53,7 +53,7 @@ module.exports = function (env) {
     ],
     devServer: {
       publicPath: '/',
-      contentBase: "./public_html",
+      contentBase: './public_html',
       hot: true,
       historyApiFallback: true
     },

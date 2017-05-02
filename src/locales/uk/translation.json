@@ -7,7 +7,8 @@
 	"MyProfile": "Мій профіль",
 	"UpdatePassword": "Змінити пароль",
 	"Logout": "Вийти"
-      }
+      },
+      "LocationsOfLoading": "Місця завантаження"
     },
     "SignUp": {
       "title": "Реєстрація",
@@ -42,16 +43,6 @@
       "errors": {
 	"notSupportedPhone": "Формат номеру невірний або ваша країна не підтримується."
       },
-      "alerts": {
-	"afterSignUp": [
-	  "Рєстрація пройшла успішно.",
-	  "Введіть пароль із SMS для входу в систему."
-	],
-	"afterPasswordRestore": [
-	  "Ваш пароль відновлено.",
-	  "Введіть пароль із SMS для входу в систему."
-	]
-      },
       "links": {
 	"RestorePassword": "Забули пароль?"
       }
@@ -72,6 +63,77 @@
       "subtype": "Підтип",
       "activity": "Вид діяльності",
       "tax": "Податок"
+    },
+    "LocationsOfLoading" : {
+      "header": "Перелік місць завантаження",
+      "table": {
+	"name": "Найменування",
+	"dailyCapacity": "Добова ємність (тон)",
+	"loadingType": "Тип завантаження",
+	"hasScales": "Ваги",
+	"badWeatherLoading": "Негода",
+	"restrictionsForTransport": "Транспортні обмеження"
+      },
+      "fields": {
+	"name": {
+	  "label": "Найменування",
+	  "hints": [
+	    "Заповніть це поле"
+	  ]
+	},
+	"dailyCapacity": {
+	  "label": "Добова ємність (тон)",
+	  "hints": [
+	    "Мінімільно дозволене значення &mdash; 0.1"
+	  ]
+	},
+	"loadingType": {
+	  "label": "Тип завантаження"
+	},
+	"hasScales": {
+	  "label": "Місце завантаження має ваги"
+	},
+	"badWeatherLoading": {
+	  "label": "Можливе завантаження у негоду"
+	},
+	"restrictionsForTransport": {
+	  "label": "Транспортні обмеження (якщо є)"
+	}
+      },
+      "addLocation": "Додати місце",
+      "save": "Зберегти",
+      "cancel": "Скасувати",
+      "update": "Оновити",
+      "delete": "Видалити",
+      "NoData": [
+	"Ви ще не маєте жодного місця загрузки.",
+	"Додайте нове"
+      ],
+      "flashMessages": {
+	"added": {
+	  "success": "Додано",
+	  "fail": "Не вдалося додати"
+	},
+	"updated": {
+	  "success": "Оновлено",
+	  "fail": "Не вдалося оновити"
+	},
+	"deleted": {
+	  "success": "Видалено",
+	  "fail": "Не вдалося видалити"
+	}
+      },
+      "modals": {
+	"delete": {
+	  "title": "Видалити це місце?",
+	  "body": [
+	    "ID: {{id}}",
+	    "Name: {{name}}"
+	  ],
+	  "decline": "Так",
+	  "confirm": "Ні"
+	}
+      }
     },
     "UpdatePassword": {
       "title": "Змінити пароль",
@@ -96,12 +158,7 @@
 	  "Підтвердження паролю має співпадати з новим паролем"
 	]
       },
-      "submit": "Змінити пароль",
-      "alerts": {
-	"afterPasswordUpdate": [
-	  "Ваш пароль було змінено."
-	]
-      }
+      "submit": "Змінити пароль"
     },
     "RestorePassword": {
       "title": "Відновити пароль",
@@ -122,6 +179,25 @@
     },
     "Footer": {
       "FAQ": "Питання й відповіді"
-    }
+    },
+    "Alerts": {
+	"afterSignUp": {
+	  "success": [
+	    "Рєстрація пройшла успішно.",
+	    "Введіть пароль із SMS для входу в систему."
+	  ]
+	},
+	"afterPasswordUpdate": {
+	  "success": [
+	    "Ваш пароль було змінено."
+	  ]
+	},
+	"afterPasswordRestore": {
+	  "success": [
+	    "Ваш пароль відновлено.",
+	    "Введіть пароль із SMS для входу в систему."
+	  ]
+	}
+      }
   }
 }

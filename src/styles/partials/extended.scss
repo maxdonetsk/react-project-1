@@ -5,6 +5,12 @@
 @import "variables.scss";
 @import "mixins.scss";
 
+.btn, btn.active {
+  &:focus {
+    outline: 0;
+  }
+}
+
 .container {
   @media (max-width: $screen-xs-max) {
     width: 100%;
@@ -108,4 +114,13 @@
 
 .btn + .btn {
   margin-left: $button-indent !important;
+}
+.modal {
+  &.danger {
+    .modal-header {
+      background-color: $brand-danger;
+      color: $color-light;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+    }
+  }
 }
