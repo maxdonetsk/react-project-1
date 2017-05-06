@@ -39,7 +39,6 @@ class FAQ extends React.Component {
   }
 
   componentDidMount() {
-    FAQActionCreators.getUserTypes();
     FAQActionCreators.getFAQ();
   }
 

@@ -45,16 +45,12 @@ module.exports = {
     EDIT_PROFILE_BUTTON_CLICK: null,
     EDIT_PROFILE_FIELD_CHANGE: null,
     CHANGE_USER_AVATAR_PREVIEW: null,
-    GET_USER_TYPES_REQUST_START: null,
-    GET_USER_TYPES_SUCCESS: null,
-    GET_USER_TYPES_FAIL: null,
+    GET_USER_TYPES: null,
 
     /**
      * FAQ
      */
-    GET_FAQ_REQUEST_START: null,
-    GET_FAQ_SUCCESS: null,
-    GET_FAQ_FAIL: null,
+    GET_FAQ: null,
 
     /**
      * Update password
@@ -75,21 +71,16 @@ module.exports = {
     /**
      * Locations of loading
      */
-    GET_LOCATIONS_OF_LOADING_TYPES_REQUST_START: null,
-    GET_LOCATIONS_OF_LOADING_TYPES_SUCCESS: null,
-    GET_LOCATIONS_OF_LOADING_TYPES_FAIL: null,
+    GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_START: null,
+    GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_END: null,
     GET_LOCATIONS_OF_LOADING_REQUEST_START: null,
-    GET_LOCATIONS_OF_LOADING_SUCCESS: null,
-    GET_LOCATIONS_OF_LOADING_FAIL: null,
+    GET_LOCATIONS_OF_LOADING_REQUEST_END: null,
     GET_LOCATION_OF_LOADING_REQUEST_START: null,
-    GET_LOCATION_OF_LOADING_SUCCESS: null,
-    GET_LOCATION_OF_LOADING_FAIL: null,
+    GET_LOCATION_OF_LOADING_REQUEST_END: null,
     UPDATE_LOCATION_OF_LOADING_REQUEST_START: null,
-    UPDATE_LOCATION_OF_LOADING_SUCCESS: null,
-    UPDATE_LOCATION_OF_LOADING_FAIL: null,
+    UPDATE_LOCATION_OF_LOADING_REQUEST_END: null,
     DELETE_LOCATION_OF_LOADING_REQUEST_START: null,
-    DELETE_LOCATION_OF_LOADING_SUCCESS: null,
-    DELETE_LOCATION_OF_LOADING_FAIL: null,
+    DELETE_LOCATION_OF_LOADING_REQUEST_END: null,
     ADD_LOCATION_OF_LOADING_BUTTON_CLICK: null,
     LOCATIONS_OF_LOADING_FIELD_CHANGE: null,
     ADD_LOCATION_OF_LOADING_RESET: null,
@@ -99,7 +90,7 @@ module.exports = {
   }),
 
   Routes: {
-    DEFAULT_ROUTE_FOR_MEMBER: '/myprofile',
+    DEFAULT_ROUTE_FOR_MEMBER: '/locations-of-loading',
     DEFAULT_ROUTE_FOR_GUEST: '/sign-in',
     SIGNIN: '/sign-in',
     SIGNUP: '/sign-up',
@@ -113,7 +104,13 @@ module.exports = {
 
   Alerts: {
     SIGN_UP_SUCCESS: 'sign-up-success',
-    RESTORE_PASSWORD_SUCCESS: 'restore-password-success'
+    RESTORE_PASSWORD_SUCCESS: 'restore-password-success',
+    UPDATE_PASSWORD_SUCCESS: 'update-password-success'
+  },
+  
+  Flashes: {
+    SUCCESS: 'success',
+    ERROR: 'error'
   },
 
   PROJECT_NAME: 'GrainBroker',

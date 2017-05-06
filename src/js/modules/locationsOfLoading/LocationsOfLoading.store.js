@@ -1,3 +1,4 @@
+import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
 //constants
@@ -5,18 +6,15 @@ import {ActionTypes,
 	CHANGE_EVENT,
 	BASE_PRIVATE_URL,
 	AUTHENTICATION_COOKIE_NAME,
-	Routes} from '../../common/constants/AppConstants';
-import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+	Routes,
+	Flashes} from '../../common/constants/AppConstants';
 
 // actions
 import LocationsOfLoadingActionCreators from './LocationsOfLoading.actionCreators';
 
 //utils
 import Joi from 'joi';
-import History from '../../utils/History';
-import Utils from '../../utils/Utils';
 import cloneDeep from 'lodash/cloneDeep';
-import orderBy from 'lodash/orderBy';
 
 const _schema = {
   name: Joi.string().required(),
@@ -128,151 +126,6 @@ let LocationsOfLoadingStore = Object.assign({}, EventEmitter.prototype, {
     return _state;
   },
 
-  getLocationsOfLoadingTypes(authParam) {
-    fetch(BASE_PRIVATE_URL + 'collection/shipment-types', {
-      method: 'GET',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status === 200) {
-	LocationsOfLoadingActionCreators.onGetLocationsOfLoadingTypesSuccess(data.shipment_types);
-      } else {
-	LocationsOfLoadingActionCreators.onGetLocationsOfLoadingTypesFail(data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-
-  getLocationsOfLoading(authParam) {
-    fetch(BASE_PRIVATE_URL + 'grain-shipment-places', {
-      method: 'GET',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status === 200) {
-	data.items = orderBy(data.items, ['id'], ['asc']);
-	LocationsOfLoadingActionCreators.onGetLocationsOfLoadingSuccess(data.items);
-      } else {
-	LocationsOfLoadingActionCreators.onGetLocationsOfLoadingFail(data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-
-  getLocationOfLoading(authParam, id) {
-    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
-      method: 'GET',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      if (response.status === 200) {
-	LocationsOfLoadingActionCreators.onGetLocationOfLoadingSuccess(response.data);
-      } else {
-	LocationsOfLoadingActionCreators.onGetLocationOfLoadingFail(response.data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-
-  updateLocationOfLoading(authParam, data, id) {
-    const body = JSON.stringify(data);
-    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
-      method: 'PUT',
-      headers: {
-	'Content-Type': 'application/json',
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      },
-      body
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      if (response.status === 200) {
-	LocationsOfLoadingActionCreators.onUpdateLocationOfLoadingSuccess(response.data);
-      } else {
-	LocationsOfLoadingActionCreators.onUpdateLocationOfLoadingFail(response.data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-
-  deleteLocationOfLoading(authParam, id) {
-    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
-      method: 'DELETE',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      }
-    }).then((response) => {
-      return response;
-    }).then((response) => {
-      if (response.status === 204) {
-	LocationsOfLoadingActionCreators.onDeleteLocationOfLoadingSuccess();
-      } else {
-	LocationsOfLoadingActionCreators.onDeleteLocationOfLoadingFail();
-      }
-    }).then(() => {
-      LocationsOfLoadingActionCreators.getLocationsOfLoading();
-      setTimeout(() => {
-	History.replace(Routes.LOCATIONS_OF_LOADING);
-      }, 1000);
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-  
-  addLocationOfLoading(authParam, data) {
-    const body = JSON.stringify(data);
-    fetch(BASE_PRIVATE_URL + 'grain-shipment-places', {
-      method: 'POST',
-      headers: {
-	'Content-Type': 'application/json',
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      },
-      body
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status === 201) {
-	LocationsOfLoadingActionCreators.onAddLocationOfLoadingSuccess(data);
-	LocationsOfLoadingActionCreators.getLocationsOfLoading();
-      } else if (response.status === 422) {
-	data.forEach((item) => {
-	  let data = {
-	    field: item.field,
-	    hint: item.message,
-	    validationState: 'error'
-	  };
-	  LocationsOfLoadingActionCreators.onAddLocationOfLoadingFail(data);
-	});
-      } else {
-	LocationsOfLoadingActionCreators.onAddLocationOfLoadingFail(data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  },
-
   validate(fieldName, isCurrent) {
     const field = isCurrent ? _state.currentLocationOfLoading.find((item) => item.name === fieldName) : _state.fields.find((item) => item.name === fieldName);
     let value = {};
@@ -312,105 +165,78 @@ let LocationsOfLoadingStore = Object.assign({}, EventEmitter.prototype, {
 });
 
 LocationsOfLoadingStore.dispatchToken = AppDispatcher.register(action => {
-  const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
   switch (action.type) {
     case ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_START:
-      LocationsOfLoadingStore.getLocationsOfLoadingTypes(authParam);
       _state.loading.locationsOfLoadingTypes = true;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_SUCCESS:
+    case ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_END:
       _state.loading.locationsOfLoadingTypes = false;
       _state.locationsOfLoadingTypes = action.data;
       LocationsOfLoadingStore.emitChange();
       break;
-
-    case ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_FAIL:
-      _state.loading.locationsOfLoadingTypes = false;
-      _state.locationsOfLoadingTypes = null;
-      LocationsOfLoadingStore.emitChange();
-      break;
       
     case ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_START:
-      LocationsOfLoadingStore.getLocationsOfLoading(authParam);
       _state.loading.locationsOfLoadingItems = true;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.GET_LOCATIONS_OF_LOADING_SUCCESS:
+    case ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_END:
       _state.loading.locationsOfLoadingItems = false;
       _state.locationsOfLoadingItems = action.data;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.GET_LOCATIONS_OF_LOADING_FAIL:
-      _state.loading.locationsOfLoadingItems = false;
-      _state.locationsOfLoadingItems = [];
-      LocationsOfLoadingStore.emitChange();
-      break;
-
     case ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_START:
-      LocationsOfLoadingStore.getLocationOfLoading(authParam, action.id);
       _state.loading.currentLocationOfLoading = true;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.GET_LOCATION_OF_LOADING_SUCCESS:
+    case ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_END:
       _state.loading.currentLocationOfLoading = false;
-      _state.currentLocationOfLoading.map(item => {
-	if (action.data.hasOwnProperty(item.name)) {
-	  item.value = action.data[item.name];
-	  item.isValid = true;
-	  if (item.hasOwnProperty('checked')) {
-	    item.checked = (item.value === 1);
+      if (action.data) {
+	_state.currentLocationOfLoading.map(item => {
+	  if (action.data.hasOwnProperty(item.name)) {
+	    item.value = action.data[item.name];
+	    item.isValid = true;
+	    if (item.hasOwnProperty('checked')) {
+	      item.checked = (item.value === 1);
+	    }
 	  }
-	}
-      });
-      _state.currentLocationOfLoadingName = action.data.name;
-      LocationsOfLoadingStore.emitChange();
-      break;
-
-    case ActionTypes.GET_LOCATION_OF_LOADING_FAIL:
-      _state.loading.currentLocationOfLoading = false;
+	});
+	_state.currentLocationOfLoadingName = action.data.name;
+      }
       LocationsOfLoadingStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_START:
-      LocationsOfLoadingStore.updateLocationOfLoading(authParam, action.data, action.id);
       _state.loading.update = true;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.UPDATE_LOCATION_OF_LOADING_SUCCESS:
+    case ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_END:
       _state.loading.update = false;
-      _state.currentLocationOfLoadingName = action.data.name;
-      _state.flash.state = 'success';
-      _state.flash.message = 'LocationsOfLoading.flashMessages.updated.success';
+      if (action.data) {
+	_state.currentLocationOfLoadingName = action.data.name;
+	_state.flash.state = Flashes.SUCCESS;
+	_state.flash.message = 'LocationsOfLoading.flashMessages.updated.success';
+      }
       LocationsOfLoadingStore.emitChange();
       break;
-
-    case ActionTypes.UPDATE_LOCATION_OF_LOADING_FAIL:
-      _state.loading.update = false;
-      LocationsOfLoadingStore.emitChange();
-      break;
-
+      
     case ActionTypes.DELETE_LOCATION_OF_LOADING_REQUEST_START:
-      LocationsOfLoadingStore.deleteLocationOfLoading(authParam, action.id);
       _state.loading.delete = true;
       LocationsOfLoadingStore.emitChange();
       break;
 
-    case ActionTypes.DELETE_LOCATION_OF_LOADING_SUCCESS:
+    case ActionTypes.DELETE_LOCATION_OF_LOADING_REQUEST_END:
       _state.loading.delete = false;
-      _state.flash.state = 'success';
-      _state.flash.message = 'LocationsOfLoading.flashMessages.deleted.success';
-      LocationsOfLoadingStore.emitChange();
-      break;
-
-    case ActionTypes.DELETE_LOCATION_OF_LOADING_FAIL:
-      _state.loading.delete = false;
+      if (action.data) {
+	_state.flash.state = Flashes.SUCCESS;
+	_state.flash.message = 'LocationsOfLoading.flashMessages.deleted.success';
+      }
       LocationsOfLoadingStore.emitChange();
       break;
 
@@ -444,7 +270,6 @@ LocationsOfLoadingStore.dispatchToken = AppDispatcher.register(action => {
       
     case ActionTypes.ADD_LOCATION_OF_LOADING_REQUEST_START:
       _state.loading.add = true;
-      LocationsOfLoadingStore.addLocationOfLoading(authParam, action.data);
       LocationsOfLoadingStore.emitChange();
       break;
     
@@ -463,7 +288,7 @@ LocationsOfLoadingStore.dispatchToken = AppDispatcher.register(action => {
     case ActionTypes.ADD_LOCATION_OF_LOADING_SUCCESS:
       _state.loading.add = false;
       _state.addLocationMode = false;
-      _state.flash.state = 'success';
+      _state.flash.state = Flashes.SUCCESS;
       _state.flash.message = 'LocationsOfLoading.flashMessages.added.success';
       _state.fields = cloneDeep(defaultFields);
       LocationsOfLoadingStore.emitChange();

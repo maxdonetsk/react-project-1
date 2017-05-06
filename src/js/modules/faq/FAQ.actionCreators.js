@@ -1,48 +1,62 @@
-import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
-class FAQActionCreators {
+//constants
+import {ActionTypes, BASE_PUBLIC_URL, UserTypes} from '../../common/constants/AppConstants';
 
-  getUserTypes() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_USER_TYPES_REQUEST_START
-    });
-  }
+//actions
+import BaseActionCreators from '../../common/actions/Base.ActionCreators';
 
-  onGetUserTypesSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_USER_TYPES_SUCCESS,
-      data
-    });
-  }
+//utils
+import Utils from '../../utils/Utils';
+import orderBy from 'lodash/orderBy';
 
-  onGetUserTypesFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_USER_TYPES_FAIL,
-      data
-    });
-  }
+class FAQActionCreators extends BaseActionCreators {
 
   getFAQ(userType) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_FAQ_REQUEST_START,
-      userType
-    });
-  }
-  
-  onGetFAQSuccess(data, userType) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_FAQ_SUCCESS,
-      data,
-      userType
-    });
-  }
+    this.getUserTypes()
+      .then(response => {
+	let data = response.data;
+	if (response.status === 200) {
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.GET_USER_TYPES,
+	    data: data.user_types
+	  });
 
-  onGetFAQFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_FAQ_FAIL,
-      data
-    });
+	  userType = userType ? userType : UserTypes.DEFAULT;
+	  const url = (userType === UserTypes.GENERIC) ? BASE_PUBLIC_URL + 'questions' : BASE_PUBLIC_URL + 'questions?user_type=' + userType;
+
+	  fetch(url, {
+	    method: 'GET',
+	    headers: {
+	      'Accept-Language': Utils.getBrowserLanguage()
+	    }
+	  })
+	  .then(this.parseJSON)
+	  .then(response => {
+	    let data = response.data;
+	    if (response.status === 200) {
+	      data.items = orderBy(data.items, ['id'], ['asc']);
+	      AppDispatcher.dispatch({
+		type: ActionTypes.GET_FAQ,
+		data: data.items,
+		userType
+	      });
+	    } else {
+	      AppDispatcher.dispatch({
+		type: ActionTypes.GET_FAQ,
+		data: []
+	      });
+	    }
+	  })
+	  .catch(this.handleError);
+	} else {
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.GET_USER_TYPES,
+	    data: null
+	  });
+	}
+      })
+      .catch(this.handleError);
   }
 }
 

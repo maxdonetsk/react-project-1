@@ -14,6 +14,9 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 import Alert from 'react-bootstrap/lib/Alert';
 
+//constants
+import {Alerts} from '../../common/constants/AppConstants';
+
 //components
 import Loading from '../../common/components/Loading.component';
 
@@ -81,7 +84,7 @@ class UpdatePassword extends React.Component {
 	<Row className='text-center'>
 	  <Col md={6} mdOffset={3}>
 	    <h1>{i18n.t('UpdatePassword.title')}</h1>
-	    {(this.state.alert.isVisible && this.state.alert.type === 'password-changed') &&
+	    {(this.state.alert.isVisible && this.state.alert.type === Alerts.UPDATE_PASSWORD_SUCCESS) &&
 	      <Alert bsStyle='success'>
 		<h4>{i18n.t('Alerts.afterPasswordUpdate.success.0')}</h4>
 	      </Alert>

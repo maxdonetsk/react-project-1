@@ -3,14 +3,17 @@ import React, {PropTypes} from 'react';
 //react-bootstrap
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 
+//constants
+import {Flashes} from '../constants/AppConstants';
+
 class FlashMessage extends React.Component {
 
   render() {
     let glyph;
-    if (this.props.state === 'success') {
+    if (this.props.state === Flashes.SUCCESS) {
       glyph = 'ok-sign';
     }
-    if (this.props.state === 'error') {
+    if (this.props.state === Flashes.ERROR) {
       glyph = 'exclamation-sign';
     }
 

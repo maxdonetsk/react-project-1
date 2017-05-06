@@ -1,17 +1,8 @@
-import {EventEmitter} from 'events';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
 //constants
-import {ActionTypes,
-	CHANGE_EVENT,
-	BASE_PRIVATE_URL,
-	AUTHENTICATION_COOKIE_NAME,
-	USER_ID_COOKIE_NAME,
-	PATH,
-	DOMAIN,
-	SECURE,
-	Routes,
-	Alerts} from '../../common/constants/AppConstants';
+import {ActionTypes, CHANGE_EVENT, Alerts} from '../../common/constants/AppConstants';
       
 //actions
 import SignInActionCreators from './SignIn.actionCreators';
@@ -114,28 +105,7 @@ let SignInStore = Object.assign({}, EventEmitter.prototype, {
 
       return !!err;
     });
-   },
-
-   getCurrentUser(authParam) {
-    fetch(BASE_PRIVATE_URL + 'profile', {
-      method: 'GET',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      }
-    }).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status === 200) {
-	ProfileActionCreators.getCurrentUserProfile(data);
-	SignInActionCreators.onSignInSuccess();
-	History.replace(Routes.DEFAULT_ROUTE_FOR_MEMBER);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
-  }
+   }
 });
 
 SignInStore.dispatchToken = AppDispatcher.register(action => {
@@ -152,36 +122,6 @@ SignInStore.dispatchToken = AppDispatcher.register(action => {
       break;
       
     case ActionTypes.SIGN_IN_REQUEST_START:
-      fetch(BASE_PRIVATE_URL + 'login', {
-	method: 'POST',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Accept-Language': Utils.getBrowserLanguage()
-	},
-	body: JSON.stringify(action.data)
-      }).then((response) => {
-	return response.json();
-      }).then((response) => {
-	if (response.status === 201) {
-	  let data = response.data;
-	  data.isLoggedIn = true;
-	  Utils.setCookieItem(AUTHENTICATION_COOKIE_NAME, data[AUTHENTICATION_COOKIE_NAME], Infinity, PATH, DOMAIN, SECURE);
-	  Utils.setCookieItem(USER_ID_COOKIE_NAME, data[USER_ID_COOKIE_NAME], Infinity, PATH, DOMAIN, SECURE);
-	  SignInStore.getCurrentUser(data[AUTHENTICATION_COOKIE_NAME]);
-	}
-	if (response.status === 422) {
-	  response.data.forEach((item) => {
-	    let data = {
-	      field: item.field,
-	      hint: item.message,
-	      validationState: 'error'
-	    };
-	    SignInActionCreators.onSignInFail(data);
-	  });
-	}
-      }).catch((error) => {
-	console.error(error);
-      });
       _state.loading = true;
       SignInStore.emitChange();
       break;

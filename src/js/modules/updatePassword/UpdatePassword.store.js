@@ -1,20 +1,14 @@
+import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
 //constants
-import {ActionTypes,
-	CHANGE_EVENT,
-	BASE_PRIVATE_URL,
-	AUTHENTICATION_COOKIE_NAME,
-	Routes} from '../../common/constants/AppConstants';
-import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {ActionTypes, CHANGE_EVENT, Alerts} from '../../common/constants/AppConstants';
 
 // actions
 import UpdatePasswordActionCreators from './UpdatePassword.actionCreators';
 
 //utils
 import Joi from 'joi';
-import History from '../../utils/History';
-import Utils from '../../utils/Utils';
 
 let newPassword = '';
 
@@ -158,45 +152,15 @@ UpdatePasswordStore.dispatchToken = AppDispatcher.register(action => {
       break;
       
     case ActionTypes.UPDATE_PASSWORD_REQUEST_START:
-      const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
       _state.loading = true;
-      fetch(BASE_PRIVATE_URL + 'update-password', {
-	method: 'PUT',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Accept-Language': Utils.getBrowserLanguage(),
-	  'Authorization': Utils.getAuthString(authParam)
-	},
-	body: JSON.stringify(action.data)
-      }).then((response) => {
-	return response.json();
-      }).then((response) => {
-	if (response.status === 200) {
-	  UpdatePasswordActionCreators.onUpdatePasswordSuccess();
-	}
-	if (response.status === 422) {
-	  response.data.forEach((item) => {
-	    let currentItem = _state.fields.find(field => field.name === item.field);
-	    let data = {
-	      field: currentItem.name,
-	      hint: item.message,
-	      validationState: 'error'
-	    };
-	    UpdatePasswordActionCreators.onUpdatePasswordFail(data);
-	  });
-	}
-      }).catch((error) => {
-	console.error(error);
-      });
       UpdatePasswordStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_PASSWORD_FAIL:
-      _state.fields.forEach((item) => {
-	if (item.name === action.data.field) {
-	  item.validationState = action.data.validationState;
-	  item.hint = action.data.hint;
-	}
+      action.data.forEach(item => {
+	let currentItem = _state.fields.find(field => field.name === item.field);
+	currentItem.hint = item.message;
+	currentItem.validationState = 'error';
       });
       _state.loading = false;
       _state.hasServerResponse = true;
@@ -205,7 +169,7 @@ UpdatePasswordStore.dispatchToken = AppDispatcher.register(action => {
 
     case ActionTypes.UPDATE_PASSWORD_SUCCESS:
       _state = _getInitialState();
-      _state.alert.type = 'password-changed'
+      _state.alert.type = Alerts.UPDATE_PASSWORD_SUCCESS;
       _state.alert.isVisible = true;
       UpdatePasswordStore.emitChange();
       break;

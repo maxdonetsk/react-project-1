@@ -1,8 +1,7 @@
-import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
 //constants
-import {PATH, DOMAIN} from '../../common/constants/AppConstants';
+import {ActionTypes, PATH, DOMAIN} from '../../common/constants/AppConstants';
 
 //utils
 import History from '../../utils/History';

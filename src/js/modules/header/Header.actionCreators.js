@@ -1,5 +1,5 @@
-import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {ActionTypes} from '../../common/constants/AppConstants';
 
 class HeaderActionCreators {
 

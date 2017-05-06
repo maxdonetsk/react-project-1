@@ -1,89 +1,142 @@
-import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 
-class LocationsOfLoadingActionCreators {
+//constants
+import {ActionTypes,
+	BASE_PRIVATE_URL,
+	AUTHENTICATION_COOKIE_NAME} from '../../common/constants/AppConstants';
 
-  getLocationsOfLoadingTypes() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_START
-    });
-  }
+//actions
+import BaseActionCreators from '../../common/actions/Base.ActionCreators';
 
-  onGetLocationsOfLoadingTypesSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_SUCCESS,
-      data
-    });
-  }
+//utils
+import History from '../../utils/History';
+import Utils from '../../utils/Utils';
+import bindAll from 'lodash/bindAll';
+import orderBy from 'lodash/orderBy';
 
-  onGetLocationsOfLoadingTypesFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_FAIL,
-      data
-    });
+class LocationsOfLoadingActionCreators extends BaseActionCreators {
+  constructor() {
+    super();
+    bindAll(this, 'getLocationsOfLoading');
   }
 
   getLocationsOfLoading() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_START
-    });
-  }
+//    AppDispatcher.dispatch({
+//      type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_START
+//    });
 
-  onGetLocationsOfLoadingSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_SUCCESS,
-      data
-    });
-  }
+    const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
-  onGetLocationsOfLoadingFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATIONS_OF_LOADING_FAIL,
-      data
-    });
+    this.getLocationsOfLoadingTypes(authParam)
+    .then(response => {
+      let data = response.data;
+      if (response.status === 200) {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_END,
+	  data: data.shipment_types
+	});
+      } else {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.GET_LOCATIONS_OF_LOADING_TYPES_REQUEST_END,
+	  data: null
+	});
+      }
+    })
+    .then(() => {
+      AppDispatcher.dispatch({
+	type: ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_START
+      });
+      fetch(BASE_PRIVATE_URL + 'grain-shipment-places', {
+	method: 'GET',
+	headers: {
+	  'Accept-Language': Utils.getBrowserLanguage(),
+	  'Authorization': Utils.getAuthString(authParam)
+	}
+      })
+      .then(this.parseJSON)
+      .then(response => {
+	let data = response.data;
+	if (response.status === 200) {
+	  data.items = orderBy(data.items, ['id'], ['asc']);
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_END,
+	    data: data.items
+	  });
+	} else {
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.GET_LOCATIONS_OF_LOADING_REQUEST_END,
+	    data: []
+	  });
+	}
+      })
+      .catch(this.handleError);
+    })
+    .catch(this.handleError);
   }
 
   getLocationOfLoading(id) {
     AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_START,
-      id
+      type: ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_START
     });
-  }
 
-  onGetLocationOfLoadingSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATION_OF_LOADING_SUCCESS,
-      data
-    });
-  }
+    const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
-  onGetLocationOfLoadingFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.GET_LOCATION_OF_LOADING_FAIL,
-      data
-    });
+    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
+      method: 'GET',
+      headers: {
+	'Accept-Language': Utils.getBrowserLanguage(),
+	'Authorization': Utils.getAuthString(authParam)
+      }
+    })
+    .then(this.parseJSON)
+    .then(response => {
+      if (response.status === 200) {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_END,
+	  data: response.data
+	});
+      } else {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.GET_LOCATION_OF_LOADING_REQUEST_END,
+	  data: null
+	});
+      }
+    })
+    .catch(this.handleError);
   }
 
   updateLocationOfLoading(data, id) {
     AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_START,
-      data,
-      id
+      type: ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_START
     });
-  }
 
-  onUpdateLocationOfLoadingSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_LOCATION_OF_LOADING_SUCCESS,
-      data
-    });
-  }
+    const body = JSON.stringify(data);
+    const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
-  onUpdateLocationOfLoadingFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.UPDATE_LOCATION_OF_LOADING_FAIL,
-      data
-    });
+    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
+      method: 'PUT',
+      headers: {
+	'Content-Type': 'application/json',
+	'Accept-Language': Utils.getBrowserLanguage(),
+	'Authorization': Utils.getAuthString(authParam)
+      },
+      body
+    })
+    .then(this.parseJSON)
+    .then(response => {
+      if (response.status === 200) {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_END,
+	  data: response.data
+	});
+      } else {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.UPDATE_LOCATION_OF_LOADING_REQUEST_END,
+	  data: null
+	});
+      }
+    })
+    .catch(this.handleError);
   }
 
   deleteLocationOfLoading(id) {
@@ -91,18 +144,37 @@ class LocationsOfLoadingActionCreators {
       type: ActionTypes.DELETE_LOCATION_OF_LOADING_REQUEST_START,
       id
     });
-  }
 
-  onDeleteLocationOfLoadingSuccess() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.DELETE_LOCATION_OF_LOADING_SUCCESS
-    });
-  }
+    const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
-  onDeleteLocationOfLoadingFail() {
-    AppDispatcher.dispatch({
-      type: ActionTypes.DELETE_LOCATION_OF_LOADING_FAIL
-    });
+    fetch(BASE_PRIVATE_URL + 'grain-shipment-places/' + id, {
+      method: 'DELETE',
+      headers: {
+	'Accept-Language': Utils.getBrowserLanguage(),
+	'Authorization': Utils.getAuthString(authParam)
+      }
+    })
+    .then(this.checkStatus)
+    .then(response => {
+      if (response.status === 204) {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.DELETE_LOCATION_OF_LOADING_REQUEST_END,
+	  data: true
+	});
+      } else {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.DELETE_LOCATION_OF_LOADING_REQUEST_END,
+	  data: false
+	});
+      }
+    })
+    .then(() => {
+      this.getLocationsOfLoading();
+      setTimeout(() => {
+	History.replace(Routes.LOCATIONS_OF_LOADING);
+      }, 1000);
+    })
+    .catch(this.handleError);
   }
 
   changeField(type, field, value, isCurrent) {
@@ -131,25 +203,52 @@ class LocationsOfLoadingActionCreators {
 
   addLocationOfLoadingSubmit(data) {
     AppDispatcher.dispatch({
-      type: ActionTypes.ADD_LOCATION_OF_LOADING_REQUEST_START,
-      data
+      type: ActionTypes.ADD_LOCATION_OF_LOADING_REQUEST_START
     });
+
+    const body = JSON.stringify(data);
+    const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
+
+    fetch(BASE_PRIVATE_URL + 'grain-shipment-places', {
+      method: 'POST',
+      headers: {
+	'Content-Type': 'application/json',
+	'Accept-Language': Utils.getBrowserLanguage(),
+	'Authorization': Utils.getAuthString(authParam)
+      },
+      body
+    })
+    .then(this.parseJSON)
+    .then((response) => {
+      let data = response.data;
+      if (response.status === 201) {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.ADD_LOCATION_OF_LOADING_SUCCESS,
+	  data
+	});
+	this.getLocationsOfLoading();
+      } else if (response.status === 422) {
+	data.forEach((item) => {
+	  let data = {
+	    field: item.field,
+	    hint: item.message,
+	    validationState: 'error'
+	  };
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.ADD_LOCATION_OF_LOADING_FAIL,
+	    data
+	  });
+	});
+      } else {
+	AppDispatcher.dispatch({
+	  type: ActionTypes.ADD_LOCATION_OF_LOADING_FAIL,
+	  data
+	});
+      }
+    })
+    .catch(this.handleError);
   }
 
-  onAddLocationOfLoadingSuccess(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.ADD_LOCATION_OF_LOADING_SUCCESS,
-      data
-    });
-  }
-
-  onAddLocationOfLoadingFail(data) {
-    AppDispatcher.dispatch({
-      type: ActionTypes.ADD_LOCATION_OF_LOADING_FAIL,
-      data
-    });
-  }
-  
   resetFlashMessage() {
     AppDispatcher.dispatch({
       type: ActionTypes.RESET_FLASH_MESSAGE

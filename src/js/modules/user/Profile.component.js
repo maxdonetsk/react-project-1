@@ -161,7 +161,7 @@ class Profile extends React.Component {
 	      <div className='panel panel-default profile-panel'>
 		<div className='panel-heading clearfix'>
 		  <div className='pull-left'>{this._getDisplayName()}</div>
-		  {(Utils.getCookieItem(USER_ID_COOKIE_NAME) === user.profile[USER_ID_COOKIE_NAME] && !this.state.editProfileMode) &&
+		  {(Utils.getCookieItem(USER_ID_COOKIE_NAME) === user.profile[USER_ID_COOKIE_NAME] && !editProfileMode) &&
 		    <div className='pull-right'>
 		      <Button type='button'
 			      bsStyle='primary'

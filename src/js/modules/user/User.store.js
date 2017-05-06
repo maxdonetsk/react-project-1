@@ -1,11 +1,9 @@
-import {EventEmitter} from 'events';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
 //constants
 import {ActionTypes,
 	CHANGE_EVENT,
-	BASE_PRIVATE_URL,
-	AUTHENTICATION_COOKIE_NAME,
 	USER_OBJECT_STORAGE_NAME,
 	Routes} from '../../common/constants/AppConstants';
       
@@ -46,54 +44,10 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
 
   getUserInfo() {
     return _state.user;
-  },
-
-  updateCurrentUser(authParam, data, file) {
-    let url = BASE_PRIVATE_URL + 'profile-image';
-
-    let body = new FormData();
-    body.append('profile_image', file);
-
-    let options = {
-      method: 'POST',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      },
-      body
-    };
-
-    if (!file) {
-      url = BASE_PRIVATE_URL + 'profile';
-      body = JSON.stringify(data);
-      options = {
-	method: 'PUT',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Accept-Language': Utils.getBrowserLanguage(),
-	  'Authorization': Utils.getAuthString(authParam)
-	},
-	body
-      };
-    }
-    
-    fetch(url, options).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status >= 200) {
-	ProfileActionCreators.onUpdateCurrentUserProfileSuccess(data);
-      } else {
-	ProfileActionCreators.onUpdateCurrentUserProfileFail(data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
   }
 });
 
 UserStore.dispatchToken = AppDispatcher.register(action => {
-  const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
 
   switch (action.type) {
 
@@ -117,7 +71,6 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_REQUEST_START:
-      UserStore.updateCurrentUser(authParam, action.data, action.file);
       _state.loading = true;
       UserStore.emitChange();
       break;

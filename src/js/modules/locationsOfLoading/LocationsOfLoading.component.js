@@ -47,9 +47,7 @@ class LocationsOfLoading extends React.Component {
   }
 
   componentDidMount() {
-    LocationsOfLoadingActionCreators.getLocationsOfLoadingTypes();
     LocationsOfLoadingActionCreators.getLocationsOfLoading();
-    LocationsOfLoadingActionCreators.resetFlashMessage();
   }
 
   componentWillMount() {

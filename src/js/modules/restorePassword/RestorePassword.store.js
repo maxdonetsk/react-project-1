@@ -1,19 +1,14 @@
+import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 import {EventEmitter} from 'events';
 
 //constants
-import {ActionTypes,
-	CHANGE_EVENT,
-	BASE_PRIVATE_URL,
-	Routes} from '../../common/constants/AppConstants';
-import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {ActionTypes, CHANGE_EVENT} from '../../common/constants/AppConstants';
 
 // actions
 import RestorePasswordActionCreators from './RestorePassword.actionCreators';
 
 //utils
 import Joi from 'joi';
-import History from '../../utils/History';
-import Utils from '../../utils/Utils';
 
 const _schema = {
   phone: Joi.string().regex(/^\d+$/).min(10).max(15).required()
@@ -103,51 +98,6 @@ RestorePasswordStore.dispatchToken = AppDispatcher.register(action => {
       
     case ActionTypes.RESTORE_PASSWORD_REQUEST_START:
       _state.loading = true;
-      fetch(BASE_PRIVATE_URL + 'restore-password', {
-	method: 'POST',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Accept-Language': Utils.getBrowserLanguage()
-	},
-	body: JSON.stringify(action.data)
-      }).then((response) => {
-	return response.json();
-      }).then((response) => {
-	if (response.status === 201) {
-	  let data = [
-	    {
-	      field: 'phone',
-	      registered: response.data.registered,
-	      value: response.data.phone,
-	      hint: null,
-	      validationState: null
-	    },
-	    {
-	      field: 'password',
-	      value: '',
-	      hint: null,
-	      validationState: null
-	    }
-	  ];
-	  RestorePasswordActionCreators.onRestorePasswordSuccess(data);
-	  History.push(Routes.SIGNIN);
-	}
-	if (response.status === 422) {
-	  response.data.forEach((item) => {
-	    if (item.field === 'phone') {
-	      item.hint = item.message;
-	    }
-	    let data = {
-	      field: item.field,
-	      hint: item.hint,
-	      validationState: 'error'
-	    };
-	    RestorePasswordActionCreators.onRestorePasswordFail(data);
-	  });
-	}
-      }).catch((error) => {
-	console.error(error);
-      });
       RestorePasswordStore.emitChange();
       break;
 
