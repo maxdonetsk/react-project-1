@@ -9,13 +9,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Breadcrumb from 'react-bootstrap/lib/Breadcrumb';
 
-//constants
-import {PROJECT_NAME,
-	DEFAULT_LANGUAGE,
-	AVAILABLE_LANGUAGES,
-	USER_OBJECT_STORAGE_NAME,
-	Routes} from '../../common/constants/AppConstants';
-
 //components
 import Loading from '../../common/components/Loading.component';
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {NavLink} from 'react-router-dom';
 
 //react-bootstrap
@@ -16,7 +16,6 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 import Glyphicon from 'react-bootstrap/lib/Glyphicon';
 import Breadcrumb from 'react-bootstrap/lib/Breadcrumb';
-import Table from 'react-bootstrap/lib/Table';
 import Modal from 'react-bootstrap/lib/Modal';
 
 //constants
@@ -39,7 +38,7 @@ import i18n from '../../utils/i18n';
 import Utils from '../../utils/Utils';
 import History from '../../utils/History';
 
-class LocationsOfLoading extends React.Component {
+class LocationOfLoading extends React.Component {
 
   constructor(props) {
     super(props);
@@ -325,4 +324,8 @@ class LocationsOfLoading extends React.Component {
   }
 }
 
-export default LocationsOfLoading;
+LocationOfLoading.propTypes = {
+  id: PropTypes.string.isRequired,
+};
+
+export default LocationOfLoading;

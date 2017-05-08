@@ -53,6 +53,12 @@ module.exports = {
     GET_FAQ: null,
 
     /**
+     * News
+     */
+    GET_NEWS: null,
+    GET_NEW: null,
+
+    /**
      * Update password
      */
     UPDATE_PASSWORD_FIELD_CHANGE: null,
@@ -99,7 +105,9 @@ module.exports = {
     MYPROFILE: '/myprofile',
     UPDATE_PASSWORD: '/update-password',
     RESTORE_PASSWORD: '/restore-password',
-    FAQ: '/faq'
+    FAQ: '/faq',
+    NEWS: '/news',
+    NEW_WITH_ID: '/news/:id'
   },
 
   Alerts: {

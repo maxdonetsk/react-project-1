@@ -34,6 +34,9 @@ class Footer extends React.Component {
 		    <div className='footer-link-item'>
 		      <NavLink to={Routes.FAQ}>{i18n.t('Footer.FAQ')}</NavLink>
 		    </div>
+		    <div className='footer-link-item'>
+		      <NavLink to={Routes.NEWS}>{i18n.t('Footer.News')}</NavLink>
+		    </div>
 		  </div>
 		</Row>
 	      </Panel>

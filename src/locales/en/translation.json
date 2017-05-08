@@ -177,8 +177,12 @@
     "FAQ": {
       "NoData": "No Data..."
     },
+    "News": {
+      "NoData": "No Data..."
+    },
     "Footer": {
-      "FAQ": "FAQ"
+      "FAQ": "FAQ",
+      "News": "News"
     },
     "Alerts": {
       "afterSignUp": {

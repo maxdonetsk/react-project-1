@@ -15,6 +15,8 @@ import UpdatePassword from '../../modules/updatePassword/UpdatePassword.componen
 import RestorePassword from '../../modules/restorePassword/RestorePassword.component';
 import Footer from '../../modules/footer/Footer.component';
 import FAQ from '../../modules/faq/FAQ.component';
+import News from '../../modules/news/News.component';
+import New from '../../modules/news/New.component';
 
 //stores
 import UserStore from '../../modules/user/User.store';
@@ -29,7 +31,8 @@ let isLoggedIn = Utils.isLoggedIn();
 if ((!isLoggedIn) && (location.pathname !== Routes.SIGNIN &&
 		      location.pathname !== Routes.SIGNUP &&
 		      location.pathname !== Routes.RESTORE_PASSWORD &&
-		      location.pathname !== Routes.FAQ)) {
+		      location.pathname !== Routes.FAQ &&
+		      location.pathname.indexOf(Routes.NEWS) < 0)) {
   History.replace(Routes.DEFAULT_ROUTE_FOR_GUEST);
 }
 if (isLoggedIn && location.pathname === '/') {
@@ -120,6 +123,12 @@ class App extends React.Component {
 	)} />
 	<Route path={Routes.FAQ} render={() => (
 	  <FAQ />  
+	)} />
+	<Route exact path={Routes.NEWS} render={() => (
+	  <News />  
+	)} />
+	<Route path={Routes.NEW_WITH_ID} render={({match}) => (
+	  <New id={match.params.id} />
 	)} />
 	<Footer />
       </div>
