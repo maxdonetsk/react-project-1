@@ -16,6 +16,9 @@ class NewsActionCreators extends BaseActionCreators {
       .then(response => {
 	let data = response.data;
 	if (response.status === 200) {
+	  AppDispatcher.dispatch({
+	    type: ActionTypes.GET_NEWS_REQUEST_START
+	  });
 
 	  userType = userType ? userType : UserTypes.DEFAULT;
 	  const url = (userType === UserTypes.GENERIC) ? BASE_PUBLIC_URL + 'news' : BASE_PUBLIC_URL + 'news?user_type=' + userType;
@@ -31,12 +34,12 @@ class NewsActionCreators extends BaseActionCreators {
 	    let data = response.data;
 	    if (response.status === 200) {
 	      AppDispatcher.dispatch({
-		type: ActionTypes.GET_NEWS,
+		type: ActionTypes.GET_NEWS_REQUEST_END,
 		data: data.items
 	      });
 	    } else {
 	      AppDispatcher.dispatch({
-		type: ActionTypes.GET_NEWS,
+		type: ActionTypes.GET_NEWS_REQUEST_END,
 		data: []
 	      });
 	    }
@@ -48,6 +51,9 @@ class NewsActionCreators extends BaseActionCreators {
   }
   
   getNew(id) {
+    AppDispatcher.dispatch({
+      type: ActionTypes.GET_NEW_REQUEST_START
+    });
     fetch(BASE_PUBLIC_URL + 'news/' + id, {
       method: 'GET',
       headers: {
@@ -59,12 +65,12 @@ class NewsActionCreators extends BaseActionCreators {
       let data = response.data;
       if (response.status === 200) {
 	AppDispatcher.dispatch({
-	  type: ActionTypes.GET_NEW,
+	  type: ActionTypes.GET_NEW_REQUEST_END,
 	  data
 	});
       } else {
 	AppDispatcher.dispatch({
-	  type: ActionTypes.GET_NEW,
+	  type: ActionTypes.GET_NEW_REQUEST_END,
 	  data: []
 	});
       }

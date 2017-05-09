@@ -55,8 +55,10 @@ module.exports = {
     /**
      * News
      */
-    GET_NEWS: null,
-    GET_NEW: null,
+    GET_NEWS_REQUEST_START: null,
+    GET_NEWS_REQUEST_END: null,
+    GET_NEW_REQUEST_START: null,
+    GET_NEW_REQUEST_END: null,
 
     /**
      * Update password

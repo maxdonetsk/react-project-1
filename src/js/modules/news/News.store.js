@@ -44,13 +44,23 @@ let NewsStore = Object.assign({}, EventEmitter.prototype, {
 NewsStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.type) {
 
-    case ActionTypes.GET_NEWS:
+    case ActionTypes.GET_NEWS_REQUEST_START:
+      _state.loading = true;
+      NewsStore.emitChange();
+      break;
+
+    case ActionTypes.GET_NEWS_REQUEST_END:
       _state.loading = false;
       _state.NewsItems = action.data;
       NewsStore.emitChange();
       break;
 
-    case ActionTypes.GET_NEW:
+    case ActionTypes.GET_NEW_REQUEST_START:
+      _state.currentItem.loading = true;
+      NewsStore.emitChange();
+      break;
+
+    case ActionTypes.GET_NEW_REQUEST_END:
       _state.currentItem.loading = false;
       Object.assign(_state.currentItem, action.data);
       NewsStore.emitChange();
