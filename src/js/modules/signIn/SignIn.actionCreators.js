@@ -11,7 +11,7 @@ import {ActionTypes,
 	SECURE} from '../../common/constants/AppConstants';
 
 //actions
-import BaseActionCreators from '../../common/actions/Base.ActionCreators';
+import BaseActionCreators from '../../common/actions/Base.actionCreators';
 
 //utils
 import Utils from '../../utils/Utils';

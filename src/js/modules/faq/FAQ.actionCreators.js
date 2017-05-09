@@ -4,7 +4,7 @@ import AppDispatcher from '../../common/dispatcher/AppDispatcher';
 import {ActionTypes, BASE_PUBLIC_URL, UserTypes} from '../../common/constants/AppConstants';
 
 //actions
-import BaseActionCreators from '../../common/actions/Base.ActionCreators';
+import BaseActionCreators from '../../common/actions/Base.actionCreators';
 
 //utils
 import Utils from '../../utils/Utils';

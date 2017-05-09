@@ -6,7 +6,7 @@ import {ActionTypes,
 	AUTHENTICATION_COOKIE_NAME} from '../../common/constants/AppConstants';
 
 //actions
-import BaseActionCreators from '../../common/actions/Base.ActionCreators';
+import BaseActionCreators from '../../common/actions/Base.actionCreators';
 
 //utils
 import History from '../../utils/History';
