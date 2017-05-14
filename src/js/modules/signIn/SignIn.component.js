@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 //react-bootstrap
 import Panel from 'react-bootstrap/lib/Panel';
@@ -13,6 +14,9 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
 import Alert from 'react-bootstrap/lib/Alert';
+
+//constants
+import {Routes, Alerts} from '../../common/constants/AppConstants';
 
 //components
 import Loading from '../../common/components/Loading.component';
@@ -73,14 +77,20 @@ class SignIn extends React.Component {
     const isEnabled = phone.isValid && password.isValid;
     const hasServerResponse = this.state.hasServerResponse;
     return (
-	<Grid>
+	<Grid className='flex-1'>
 	  <Row className='text-center'>
 	    <Col md={6} mdOffset={3}>
 	      <h1>{i18n.t('SignIn.title')}</h1>
-	      {(this.state.alert.isVisible && this.state.alert.type === 'sign-up-success') &&
+	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.SIGN_UP_SUCCESS) &&
 		<Alert bsStyle='success'>
-		  <h4>{i18n.t('SignIn.alerts.afterSignUp.0')}</h4>
-		  <p>{i18n.t('SignIn.alerts.afterSignUp.1')}</p>
+		  <h4>{i18n.t('Alerts.afterSignUp.success.0')}</h4>
+		  <p>{i18n.t('Alerts.afterSignUp.success.1')}</p>
+		</Alert>
+	      }
+	      {(this.state.alert.isVisible && this.state.alert.type === Alerts.RESTORE_PASSWORD_SUCCESS) &&
+		<Alert bsStyle='success'>
+		  <h4>{i18n.t('Alerts.afterPasswordRestore.success.0')}</h4>
+		  <p>{i18n.t('Alerts.afterPasswordRestore.success.1')}</p>
 		</Alert>
 	      }
 	    </Col>
@@ -138,6 +148,7 @@ class SignIn extends React.Component {
 		    </div>
 		  ))}
 		  <div className='text-right'>
+		    <Link to={Routes.RESTORE_PASSWORD} className='btn btn-link'>{i18n.t('SignIn.links.RestorePassword')}</Link>
 		    <Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
 		      {this.state.loading ? <Loading /> : i18n.t('SignIn.submit')}
 		    </Button>

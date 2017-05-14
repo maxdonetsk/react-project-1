@@ -118,7 +118,6 @@ class Profile extends React.Component {
     event.preventDefault();
     const data = JSON.parse(localStorage.getItem(USER_OBJECT_STORAGE_NAME));
     ProfileActionCreators.getCurrentUserProfile(data);
-    this.setState({editProfileMode: false});
   }
 
   _getDisplayName() {
@@ -147,7 +146,7 @@ class Profile extends React.Component {
     const editProfileMode = this.state.editProfileMode;
     const user = this.state.user;
     return (
-	<Grid className='profile'>
+	<Grid className='profile flex-1'>
 	  <Row>
 	    <Col xs={12}>
 	      <Breadcrumb>
@@ -162,7 +161,7 @@ class Profile extends React.Component {
 	      <div className='panel panel-default profile-panel'>
 		<div className='panel-heading clearfix'>
 		  <div className='pull-left'>{this._getDisplayName()}</div>
-		  {(Utils.getCookieItem(USER_ID_COOKIE_NAME) === user.profile[USER_ID_COOKIE_NAME] && !this.state.editProfileMode) &&
+		  {(Utils.getCookieItem(USER_ID_COOKIE_NAME) === user.profile[USER_ID_COOKIE_NAME] && !editProfileMode) &&
 		    <div className='pull-right'>
 		      <Button type='button'
 			      bsStyle='primary'
@@ -398,11 +397,6 @@ class Profile extends React.Component {
 		      </Form>
 		    </Col>
 		  </Row>
-		
-		
-		
-		
-		  
 		</div>
 	      </div>
 	    </Col>

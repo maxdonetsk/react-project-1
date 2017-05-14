@@ -5,9 +5,10 @@
       "SignUp": "Sign Up",
       "MemberMenu": {
 	"MyProfile": "My profile",
-	"ChangePassword": "Change password",
+	"UpdatePassword": "Change password",
 	"Logout": "Logout"
-      }
+      },
+      "LocationsOfLoading": "Locations of loading"
     },
     "SignUp": {
       "title": "Sign Up",
@@ -42,11 +43,8 @@
       "errors": {
 	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
       },
-      "alerts": {
-	"afterSignUp": [
-	  "You are successfully signed up.",
-	  "Please use SMS code as a password to sign in."
-	]
+      "links": {
+	"RestorePassword": "Forgot password?"
       }
     },
     "Profile": {
@@ -65,6 +63,145 @@
       "subtype": "Subtype",
       "activity": "Activity",
       "tax": "Tax"
+    },
+    "LocationsOfLoading": {
+      "header": "List of locations of loading",
+      "table": {
+	"name": "Name",
+	"dailyCapacity": "Daily capacity (tons)",
+	"loadingType": "Loading type",
+	"hasScales": "Scales",
+	"badWeatherLoading": "Bad weather",
+	"restrictionsForTransport": "Transport restrictions"
+      },
+      "fields": {
+	"name": {
+	  "label": "Name",
+	  "hints": [
+	    "Please fill out this field"
+	  ]
+	},
+	"dailyCapacity": {
+	  "label": "Daily capacity (tons)",
+	  "hints": [
+	    "Minimal allowed value is 0.1"
+	  ]
+	},
+	"loadingType": {
+	  "label": "Loading type"
+	},
+	"hasScales": {
+	  "label": "Location of loading has scales"
+	},
+	"badWeatherLoading": {
+	  "label": "Loading in bad weather is available"
+	},
+	"restrictionsForTransport": {
+	  "label": "Transport restrictions (if available)"
+	}
+      },
+      "addLocation": "Add Location",
+      "save": "Save",
+      "cancel": "Cancel",
+      "update": "Update",
+      "delete": "Delete",
+      "NoData": [
+	"You don't have any location of loading yet.",
+	"Add a new one"
+      ],
+      "flashMessages": {
+	"added": {
+	  "success": "Added",
+	  "fail": "Failed to add"
+	},
+	"updated": {
+	  "success": "Updated",
+	  "fail": "Failed to update"
+	},
+	"deleted": {
+	  "success": "Deleted",
+	  "fail": "Failed to delete"
+	}
+      },
+      "modals": {
+	"delete": {
+	  "title": "Delete this location?",
+	  "body": [
+	    "ID: {{id}}",
+	    "Name: {{name}}"
+	  ],
+	  "decline": "No",
+	  "confirm": "Yes"
+	}
+      }
+    },
+    "UpdatePassword": {
+      "title": "Change Password",
+      "old_password": {
+	"label": "Current password",
+	"hints": [
+	  "Please fill out this field"
+	]
+      },
+      "password": {
+	"label": "New password",
+	"hints": [
+	  "Please fill out this field",
+	  "Password should contain minimum 4 symbols"
+	]
+      },
+      "password_repeat": {
+	"label": "Password confirmation",
+	"hints": [
+	  "Please fill out this field",
+	  "Password should contain minimum 4 symbols",
+	  "Password confirmation must match new password"
+	]
+      },
+      "submit": "Change password"
+    },
+    "RestorePassword": {
+      "title": "Restore password",
+      "phone": {
+	"label": "Phone number",
+	"hints": [
+	  "Please fill out this field",
+	  "Not a valid phone number. Example: +15551234567. Type numbers only."
+	]
+      },
+      "submit": "Restore password",
+      "errors": {
+	"notSupportedPhone": "The phone number format is invalid or your country in not supported."
+      }
+    },
+    "FAQ": {
+      "NoData": "No Data..."
+    },
+    "News": {
+      "NoData": "No Data..."
+    },
+    "Footer": {
+      "FAQ": "FAQ",
+      "News": "News"
+    },
+    "Alerts": {
+      "afterSignUp": {
+	"success": [
+	  "You are successfully signed up.",
+	  "Please use SMS code as a password to sign in."
+	]
+      },
+      "afterPasswordUpdate": {
+	"success": [
+	  "Your password has been changed."
+	]
+      },
+      "afterPasswordRestore": {
+	"success": [
+	  "You password has been restored.",
+	  "Please use SMS code as a password to sign in."
+	]
+      }
     }
   }
 }

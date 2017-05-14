@@ -12,21 +12,25 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Button from 'react-bootstrap/lib/Button';
+import Alert from 'react-bootstrap/lib/Alert';
+
+//constants
+import {Alerts} from '../../common/constants/AppConstants';
 
 //components
 import Loading from '../../common/components/Loading.component';
 
 // actions
-import SignUpActionCreators from './SignUp.actionCreators';
+import UpdatePasswordActionCreators from './UpdatePassword.actionCreators';
 
 // stores
-import SignUpStore from './SignUp.store';
+import UpdatePasswordStore from './UpdatePassword.store';
 
 //utils
 import bindAll from 'lodash/bindAll';
 import i18n from '../../utils/i18n';
 
-class SignUp extends React.Component {
+class UpdatePassword extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,11 +39,11 @@ class SignUp extends React.Component {
   }
   
   componentWillMount() {
-    SignUpStore.addChangeListener(this._onChange);
+    UpdatePasswordStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    SignUpStore.removeChangeListener(this._onChange);
+    UpdatePasswordStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
@@ -48,29 +52,44 @@ class SignUp extends React.Component {
   
   _getStateFromStores() {
     return {
-      ...SignUpStore.getState()
+      ...UpdatePasswordStore.getState()
     };
   }
 
   _handleFieldChange(event) {
-    SignUpActionCreators.changeField(event.target.name, event.target.value);
+    UpdatePasswordActionCreators.changeField(event.target.name, event.target.value);
   }
   
   _handleSubmit(event) {
     event.preventDefault();
-    const phone = this.state.fields.find((item) => item.name === 'phone');
-    const data = {phone: phone.value};
-    SignUpActionCreators.signUp(data);
+    const old_password = this.state.fields.find((item) => item.name === 'old_password');
+    const password = this.state.fields.find((item) => item.name === 'password');
+    const password_repeat = this.state.fields.find((item) => item.name === 'password_repeat');
+    const data = {
+      old_password: old_password.value,
+      password: password.value,
+      password_repeat: password_repeat.value
+    };
+    UpdatePasswordActionCreators.updatePassword(data);
   }
 
   render() {
-    const phone = this.state.fields.find((item) => item.name === 'phone');
-    const isEnabled = phone.isValid;
+    const old_password = this.state.fields.find((item) => item.name === 'old_password');
+    const password = this.state.fields.find((item) => item.name === 'password');
+    const password_repeat = this.state.fields.find((item) => item.name === 'password_repeat');
+    const isEnabled = old_password.isValid && password.isValid && password_repeat.isValid;
     const hasServerResponse = this.state.hasServerResponse;
     return (
       <Grid className='flex-1'>
 	<Row className='text-center'>
-	  <h1>{i18n.t('SignUp.title')}</h1>
+	  <Col md={6} mdOffset={3}>
+	    <h1>{i18n.t('UpdatePassword.title')}</h1>
+	    {(this.state.alert.isVisible && this.state.alert.type === Alerts.UPDATE_PASSWORD_SUCCESS) &&
+	      <Alert bsStyle='success'>
+		<h4>{i18n.t('Alerts.afterPasswordUpdate.success.0')}</h4>
+	      </Alert>
+	    }
+	  </Col>
 	</Row>
 	<Row>
 	  <Col md={6} mdOffset={3}>
@@ -82,15 +101,12 @@ class SignUp extends React.Component {
 		    controlId={field.name}
 		    validationState={field.validationState}>
 		    <ControlLabel>{i18n.t(field.label)}</ControlLabel>
-		    <InputGroup>
-		      <InputGroup.Addon>+</InputGroup.Addon>
 		      <FormControl
 			type={field.type}
 			value={field.value}
 			name={i18n.t(field.name)}
 			placeholder={i18n.t(field.placeholder)}
 			onChange={event => this._handleFieldChange(event)} />
-		    </InputGroup>
 		    <FormControl.Feedback />
 		    <HelpBlock>{hasServerResponse ? (
 			field.hint
@@ -102,7 +118,7 @@ class SignUp extends React.Component {
 		))}
 		<div className='text-right'>
 		  <Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
-		    {this.state.loading ? <Loading /> : i18n.t('SignUp.submit')}
+		    {this.state.loading ? <Loading /> : i18n.t('UpdatePassword.submit')}
 		  </Button>
 		</div>
 	      </Form>
@@ -114,4 +130,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default UpdatePassword;

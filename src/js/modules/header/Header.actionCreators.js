@@ -1,12 +1,12 @@
-import {ActionTypes} from '../../common/constants/AppConstants';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {ActionTypes} from '../../common/constants/AppConstants';
 
 class HeaderActionCreators {
 
-  changeLanguage(language) {
+  changeNavbarToogleIcon(isNavbarCollapsed) {
     AppDispatcher.dispatch({
-      type: ActionTypes.APP_LANGUAGE_CHANGED,
-      path
+      type: ActionTypes.CHANGE_NAVBAR_TOGGLE_ICON,
+      isNavbarCollapsed
     });
   }
 }

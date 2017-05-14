@@ -5,17 +5,122 @@
 @import "variables.scss";
 @import "mixins.scss";
 
+.btn, btn.active {
+  &:focus {
+    outline: 0;
+  }
+}
+
+.container {
+  @media (max-width: $screen-xs-max) {
+    width: 100%;
+  }
+}
+
 .navbar {
   @include box-shadow(0 2px 5px rgba(0,0,0,.25));
   border: none;
 }
 
-.navbar-default .navbar-nav > li > a {
-  &.active {
-    background-color: $navbar-default-link-active-bg;
+.navbar-default {
+  .navbar-nav {
+    margin-top: 0;
+    margin-bottom: 0;
+    > li {
+      padding: 0;
+
+      > a {
+	background-color: $navbar-default-bg;
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+	&.active {
+	  background-color: $navbar-default-link-active-bg;
+	}
+
+	&#user-dropdown {
+	  background-color: $navbar-default-bg;
+
+	  &:hover, &:focus {
+	    background-color: $navbar-default-link-active-bg;
+	  }
+	}
+      }
+
+      .dropdown-menu {
+	padding-top: 0;
+	padding-bottom: 0;
+	border: 0;
+
+	> li > a {
+	  padding-top: 8px;
+	  padding-bottom: 8px;
+	}
+      }
+    }
+    .open {
+      .dropdown-menu {
+	> li {
+	  &.active {
+	    > a {
+	      background-color: lighten($navbar-default-bg, 5);
+
+	      @media (max-width: $grid-float-breakpoint-max) {
+		background-color: lighten($navbar-default-bg, 5);
+	      }
+	    }
+	  }
+
+	  > a {
+	    @media (max-width: $grid-float-breakpoint-max) {
+	      padding-top: 8px;
+	      padding-bottom: 8px;
+	    }
+	  }
+	}
+      }
+    }
+  }
+
+  .navbar-toggle {
+    padding: 8px 12px;
+    border: 0;
+    margin: 0;
+    border-radius: 0;
+    &:hover, &:focus {
+      background-color: $navbar-default-link-hover-bg;
+
+      .navbar-icon {
+	fill: $navbar-default-link-hover-color;
+      }
+    }
+
+    .navbar-icon {
+      fill: $navbar-default-brand-color;
+      width: 34px;
+      height: 34px;
+    }
+  }
+
+  .navbar-collapse {
+    border-width: 0;
+    box-shadow: none;
+
+    &.collapsing {
+      @include transition-duration($fast);
+    }
   }
 }
 
 .btn + .btn {
   margin-left: $button-indent !important;
+}
+.modal {
+  &.danger {
+    .modal-header {
+      background-color: $brand-danger;
+      color: $color-light;
+      border-radius: $border-radius-base $border-radius-base 0 0;
+    }
+  }
 }

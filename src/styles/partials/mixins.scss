@@ -8,6 +8,16 @@
 Example: @include user-avatar(1);
 */
 @mixin user-avatar($scale: 1) {
-    width: $avatar-initial-size * $scale;
-    height: $avatar-initial-size * $scale;
+  width: $avatar-initial-size * $scale;
+  height: $avatar-initial-size * $scale;
+}
+
+
+
+/*mixin for panel-heading.
+Example: @include default-panel-heading();
+*/
+@mixin default-panel-heading() {
+  font-weight: 700;
+  font-size: 1.7em;
 }

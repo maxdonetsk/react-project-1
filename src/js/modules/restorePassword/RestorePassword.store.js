@@ -5,7 +5,7 @@ import {EventEmitter} from 'events';
 import {ActionTypes, CHANGE_EVENT} from '../../common/constants/AppConstants';
 
 // actions
-import SignUpActionCreators from './SignUp.actionCreators';
+import RestorePasswordActionCreators from './RestorePassword.actionCreators';
 
 //utils
 import Joi from 'joi';
@@ -20,8 +20,8 @@ function _getInitialState() {
       name: 'phone',
       type: 'tel',
       value: '',
-      label: 'SignUp.phone.label',
-      placeholder: 'SignUp.phone.label',
+      label: 'RestorePassword.phone.label',
+      placeholder: 'RestorePassword.phone.label',
       isValid: false,
       validationState: null,
       hint: null
@@ -33,7 +33,7 @@ function _getInitialState() {
 
 let _state = _getInitialState();
 
-let SignUpStore = Object.assign({}, EventEmitter.prototype, {
+let RestorePasswordStore = Object.assign({}, EventEmitter.prototype, {
   emitChange() {
     this.emit(CHANGE_EVENT);
   },
@@ -66,9 +66,9 @@ let SignUpStore = Object.assign({}, EventEmitter.prototype, {
 	switch (field.name) {
 	  case 'phone':
 	    if (err.details[0].type === 'any.empty') {
-		field.hint = 'SignUp.phone.hints.0';
+		field.hint = 'RestorePassword.phone.hints.0';
 	    } else {
-	      field.hint = 'SignUp.phone.hints.1';
+	      field.hint = 'RestorePassword.phone.hints.1';
 	    }
 	    field.validationState = 'error';
 	    break;
@@ -83,25 +83,25 @@ let SignUpStore = Object.assign({}, EventEmitter.prototype, {
    }
 });
 
-SignUpStore.dispatchToken = AppDispatcher.register(action => {
+RestorePasswordStore.dispatchToken = AppDispatcher.register(action => {
   switch (action.type) {
-    case ActionTypes.SIGN_UP_FIELD_CHANGE:
+    case ActionTypes.RESTORE_PASSWORD_FIELD_CHANGE:
       _state.fields.forEach((item) => {
 	if (item.name === action.field) {
 	  item.value = action.value;
-	  SignUpStore.validate(item.name);
+	  RestorePasswordStore.validate(item.name);
 	}
       });
       _state.hasServerResponse = false;
-      SignUpStore.emitChange();
+      RestorePasswordStore.emitChange();
       break;
       
-    case ActionTypes.SIGN_UP_REQUEST_START:
+    case ActionTypes.RESTORE_PASSWORD_REQUEST_START:
       _state.loading = true;
-      SignUpStore.emitChange();
+      RestorePasswordStore.emitChange();
       break;
 
-    case ActionTypes.SIGN_UP_FAIL:
+    case ActionTypes.RESTORE_PASSWORD_FAIL:
       _state.fields.forEach((item) => {
 	if (item.name === action.data.field) {
 	  item.validationState = action.data.validationState;
@@ -110,10 +110,10 @@ SignUpStore.dispatchToken = AppDispatcher.register(action => {
       });
       _state.loading = false;
       _state.hasServerResponse = true;
-      SignUpStore.emitChange();
+      RestorePasswordStore.emitChange();
       break;
 
-    case ActionTypes.SIGN_UP_SUCCESS:
+    case ActionTypes.RESTORE_PASSWORD_SUCCESS:
       _state.loading = false;
       _state.fields.forEach((item) => {
 	if (action.data) {
@@ -122,7 +122,7 @@ SignUpStore.dispatchToken = AppDispatcher.register(action => {
 	  item.hint = action.data.hint;
 	}
       });
-      SignUpStore.emitChange();
+      RestorePasswordStore.emitChange();
       break;
 
     default:
@@ -131,4 +131,4 @@ SignUpStore.dispatchToken = AppDispatcher.register(action => {
 
 });
 
-export default SignUpStore;
+export default RestorePasswordStore;

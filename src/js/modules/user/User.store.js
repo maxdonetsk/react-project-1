@@ -1,12 +1,11 @@
-import {EventEmitter} from 'events';
 import AppDispatcher from '../../common/dispatcher/AppDispatcher';
+import {EventEmitter} from 'events';
 
 //constants
 import {ActionTypes,
 	CHANGE_EVENT,
-	BASE_URL,
-	AUTHENTICATION_COOKIE_NAME,
-	USER_OBJECT_STORAGE_NAME} from '../../common/constants/AppConstants';
+	USER_OBJECT_STORAGE_NAME,
+	Routes} from '../../common/constants/AppConstants';
       
 //actions
 import ProfileActionCreators from './Profile.actionCreators';
@@ -43,51 +42,13 @@ let UserStore = Object.assign({}, EventEmitter.prototype, {
     return _state;
   },
 
-  updateCurrentUser(authParam, data, file) {
-    let url = BASE_URL + 'profile-image';
-
-    let body = new FormData();
-    body.append('profile_image', file);
-
-    let options = {
-      method: 'POST',
-      headers: {
-	'Accept-Language': Utils.getBrowserLanguage(),
-	'Authorization': Utils.getAuthString(authParam)
-      },
-      body
-    };
-
-    if (!file) {
-      url = BASE_URL + 'profile';
-      body = JSON.stringify(data);
-      options = {
-	method: 'PUT',
-	headers: {
-	  'Content-Type': 'application/json',
-	  'Accept-Language': Utils.getBrowserLanguage(),
-	  'Authorization': Utils.getAuthString(authParam)
-	},
-	body
-      };
-    }
-    
-    fetch(url, options).then((response) => {
-      return response.json();
-    }).then((response) => {
-      let data = response.data;
-      if (response.status >= 200) {
-	ProfileActionCreators.onUpdateCurrentUserProfileSuccess(data);
-      } else {
-	ProfileActionCreators.onUpdateCurrentUserProfileFail(data);
-      }
-    }).catch((error) => {
-      console.error(error);
-    });
+  getUserInfo() {
+    return _state.user;
   }
 });
 
 UserStore.dispatchToken = AppDispatcher.register(action => {
+
   switch (action.type) {
 
     case ActionTypes.SIGN_IN_SUCCESS:
@@ -99,36 +60,28 @@ UserStore.dispatchToken = AppDispatcher.register(action => {
       _state.isLoggedIn = Utils.isLoggedIn();
       localStorage.clear();
       UserStore.emitChange();
-      location.replace('/sign-in');
+      location.replace(Routes.DEFAULT_ROUTE_FOR_GUEST);
       break;
 
     case ActionTypes.GET_CURRENT_USER_PROFILE:
       _state.user = action.data;
+      _state.editProfileMode = false;
       localStorage.setItem(USER_OBJECT_STORAGE_NAME, JSON.stringify(action.data));
       UserStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_REQUEST_START:
-      action;
-      const authParam = Utils.getCookieItem(AUTHENTICATION_COOKIE_NAME);
-      UserStore.updateCurrentUser(authParam, action.data, action.file);
       _state.loading = true;
       UserStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_SUCCESS:
-//      _state.loading = false;
-//      _state.editProfileMode = false;
-//      _state.userAvatarPreview = null;
-//      _state.user = action.data;
       localStorage.setItem(USER_OBJECT_STORAGE_NAME, JSON.stringify(action.data));
       _state = _getInitialState();
       UserStore.emitChange();
       break;
 
     case ActionTypes.UPDATE_CURRENT_USER_PROFILE_FAIL:
-      action.data;
-      debugger;
       _state.loading = false;
       UserStore.emitChange();
       break;

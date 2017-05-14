@@ -12,24 +12,24 @@ import BaseActionCreators from '../../common/actions/Base.actionCreators';
 import Utils from '../../utils/Utils';
 import History from '../../utils/History';
 
-class SignUpActionCreators extends BaseActionCreators {
+class RestorePasswordActionCreators extends BaseActionCreators {
 
   changeField(field, value) {
     AppDispatcher.dispatch({
-      type: ActionTypes.SIGN_UP_FIELD_CHANGE,
+      type: ActionTypes.RESTORE_PASSWORD_FIELD_CHANGE,
       field,
       value
     });
   }
 
-  signUp(data) {
+  restorePassword(data) {
     AppDispatcher.dispatch({
-      type: ActionTypes.SIGN_UP_REQUEST_START
+      type: ActionTypes.RESTORE_PASSWORD_REQUEST_START
     });
 
     const body = JSON.stringify(data);
 
-    fetch(BASE_PRIVATE_URL + 'sign-up', {
+    fetch(BASE_PRIVATE_URL + 'restore-password', {
       method: 'POST',
       headers: {
 	'Content-Type': 'application/json',
@@ -56,7 +56,7 @@ class SignUpActionCreators extends BaseActionCreators {
 	  }
 	];
 	AppDispatcher.dispatch({
-	  type: ActionTypes.SIGN_UP_SUCCESS,
+	  type: ActionTypes.RESTORE_PASSWORD_SUCCESS,
 	  data
 	});
 	History.push(Routes.SIGNIN);
@@ -72,13 +72,14 @@ class SignUpActionCreators extends BaseActionCreators {
 	    validationState: 'error'
 	  };
 	  AppDispatcher.dispatch({
-	    type: ActionTypes.SIGN_UP_FAIL,
+	    type: ActionTypes.RESTORE_PASSWORD_FAIL,
 	    data
 	  });
 	});
       }
-    }).catch(this.handleError);
+    })
+    .catch(this.handleError);
   }
 }
 
-export default new SignUpActionCreators();
+export default new RestorePasswordActionCreators();

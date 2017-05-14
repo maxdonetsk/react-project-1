@@ -1,10 +1,12 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
+
+//react-bootstrap
 import Navbar from 'react-bootstrap/lib/Navbar';
 import Nav from 'react-bootstrap/lib/Nav';
 import NavItem from 'react-bootstrap/lib/NavItem';
 import NavDropdown from 'react-bootstrap/lib/NavDropdown';
 import MenuItem from 'react-bootstrap/lib/MenuItem';
-import {NavLink} from 'react-router-dom';
 
 //constants
 import {PROJECT_NAME,
@@ -15,14 +17,17 @@ import {PROJECT_NAME,
 
 // actions
 import LogoutActionCreators from '../logout/Logout.actionCreators';
+import HeaderActionCreators from './Header.actionCreators';
 
 // stores
 import UserStore from '../user/User.store';
+import HeaderStore from './Header.store';
 
 //utils
 import bindAll from 'lodash/bindAll';
 import i18n from '../../utils/i18n';
 import Utils from '../../utils/Utils';
+import History from '../../utils/History';
 
 let currentLanguage = Utils.getBrowserLanguage();
 
@@ -31,28 +36,32 @@ class Header extends React.Component {
   constructor(props) {
     super(props);
     bindAll(this, '_onLanguageChange', '_notCurrent', '_onChange', '_logout',
-	    '_getDisplayNameAndAvatar');
+	    '_handleMenuItemSelect', '_getDisplayNameAndAvatar',
+	    '_getNavbarToggleIcon', '_onNavbarToggleClick');
     this.state = this._getStateFromStores();
   }
 
   componentWillMount() {
     UserStore.addChangeListener(this._onChange);
+    HeaderStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
     UserStore.removeChangeListener(this._onChange);
+    HeaderStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
     this.setState(this._getStateFromStores);
   }
-  
+
   _getStateFromStores() {
     return {
-      ...UserStore.getState()
+      ...UserStore.getState(),
+      ...HeaderStore.getState()
     };
   }
-  
+
   _onLanguageChange(event) {
     if (event.target.name) {
       i18n.changeLanguage(event.target.name, (err, t) => {
@@ -63,19 +72,29 @@ class Header extends React.Component {
       });
     }
   }
-  
+
   _logout(event) {
     event.preventDefault();
     LogoutActionCreators.logout();
   }
-  
+
+  _handleMenuItemSelect(event) {
+    event.preventDefault();
+    History.replace(event.target.name);
+  }
+
   _notCurrent(language) {
     return language !== currentLanguage;
   }
 
   _getDisplayNameAndAvatar() {
     const storageUser = JSON.parse(localStorage.getItem(USER_OBJECT_STORAGE_NAME));
-    let displayName = `+${storageUser.phone}`;
+    let displayName = (
+      <div className='user-dropdown-wrapper'>
+	{`+${storageUser.phone}`}
+	<img src={storageUser.profile.profile_image} alt='' className='user-avatar' />
+      </div>
+    );
 
     if (storageUser.profile.first_name) {
       displayName = (
@@ -121,24 +140,57 @@ class Header extends React.Component {
     return displayName;
   }
 
+  _getNavbarToggleIcon() {
+    return this.state.isNavbarCollapsed ? (
+      <svg className='navbar-icon' preserveAspectRatio='xMinYMin meet' viewBox='0 0 20 20'>
+	  <path d='M17.5 6h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+	  <path d='M17.5 11h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+	  <path d='M17.5 16h-15c-0.276 0-0.5-0.224-0.5-0.5s0.224-0.5 0.5-0.5h15c0.276 0 0.5 0.224 0.5 0.5s-0.224 0.5-0.5 0.5z'></path>
+      </svg>
+    ) : (
+      <svg className='navbar-icon' preserveAspectRatio='xMinYMin meet' viewBox='0 0 20 20'>
+	  <path d='M10.707 10.5l5.646-5.646c0.195-0.195 0.195-0.512 0-0.707s-0.512-0.195-0.707 0l-5.646 5.646-5.646-5.646c-0.195-0.195-0.512-0.195-0.707 0s-0.195 0.512 0 0.707l5.646 5.646-5.646 5.646c-0.195 0.195-0.195 0.512 0 0.707 0.098 0.098 0.226 0.146 0.354 0.146s0.256-0.049 0.354-0.146l5.646-5.646 5.646 5.646c0.098 0.098 0.226 0.146 0.354 0.146s0.256-0.049 0.354-0.146c0.195-0.195 0.195-0.512 0-0.707l-5.646-5.646z'></path>
+      </svg>
+    );
+  }
+
+  _onNavbarToggleClick() {
+    HeaderActionCreators.changeNavbarToogleIcon(this.state.isNavbarCollapsed);
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect>
 	<Navbar.Header>
 	  <Navbar.Brand>
-	    <NavLink to='/'>{PROJECT_NAME}</NavLink>
+	    <NavLink to={this.state.isLoggedIn ? Routes.DEFAULT_ROUTE_FOR_MEMBER : Routes.DEFAULT_ROUTE_FOR_GUEST}>{PROJECT_NAME}</NavLink>
 	  </Navbar.Brand>
-	  <Navbar.Toggle />
+	  <Navbar.Toggle children={this._getNavbarToggleIcon()} onClick={this._onNavbarToggleClick} />
 	</Navbar.Header>
+	{this.state.isLoggedIn ? (
 	<Navbar.Collapse>
-	  {this.state.isLoggedIn ? (
+	  <Nav>
+	    <li><NavLink to={Routes.LOCATIONS_OF_LOADING} activeClassName='active'>{i18n.t('Header.LocationsOfLoading')}</NavLink></li>
+	  </Nav>
 	  <Nav pullRight>
 	    <NavDropdown eventKey={4} id='user-dropdown' title={this._getDisplayNameAndAvatar()}>
-	      <MenuItem eventKey={4.1} active={location.pathname === Routes.PROFILE}>{i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
-	      {/*<MenuItem eventKey={4.2} active={location.pathname === Routes.CHANGE_PASSWORD}>{i18n.t('Header.MemberMenu.ChangePassword')}</MenuItem>*/}
-	      <MenuItem eventKey={4.3} onClick={this._logout}>{i18n.t('Header.MemberMenu.Logout')}</MenuItem>
-	      {/*<MenuItem divider />
-	      <MenuItem eventKey={4.3}>Administration</MenuItem>*/}
+	      <MenuItem
+		eventKey={4.1}
+		active={location.pathname === Routes.MYPROFILE}
+		name={Routes.MYPROFILE}
+		onClick={this._handleMenuItemSelect}>
+		  {i18n.t('Header.MemberMenu.MyProfile')}</MenuItem>
+	      <MenuItem
+		eventKey={4.2}
+		active={location.pathname === Routes.UPDATE_PASSWORD}
+		name={Routes.UPDATE_PASSWORD}
+		onClick={this._handleMenuItemSelect}>
+		  {i18n.t('Header.MemberMenu.UpdatePassword')}</MenuItem>
+	      <MenuItem divider />
+	      <MenuItem
+		eventKey={4.3}
+		onClick={this._logout}>
+		  {i18n.t('Header.MemberMenu.Logout')}</MenuItem>
 	    </NavDropdown>
 	    <NavDropdown eventKey={4} id='languages-dropdown' title={currentLanguage.toUpperCase()}>
 	      {AVAILABLE_LANGUAGES.filter(this._notCurrent).map((language, index) => (
@@ -146,7 +198,9 @@ class Header extends React.Component {
 	      ))}
 	    </NavDropdown>
 	  </Nav>
-	  ) : (
+	</Navbar.Collapse>
+	) : (
+	<Navbar.Collapse>
 	  <Nav pullRight>
 	    <li><NavLink to={Routes.SIGNIN} activeClassName='active'>{i18n.t('Header.SignIn')}</NavLink></li>
 	    <li><NavLink to={Routes.SIGNUP} activeClassName='active'>{i18n.t('Header.SignUp')}</NavLink></li>
@@ -156,8 +210,8 @@ class Header extends React.Component {
               ))}
 	    </NavDropdown>
 	  </Nav>
-	    )}
 	</Navbar.Collapse>
+	)}
       </Navbar>
     );
   }

@@ -17,16 +17,16 @@ import Button from 'react-bootstrap/lib/Button';
 import Loading from '../../common/components/Loading.component';
 
 // actions
-import SignUpActionCreators from './SignUp.actionCreators';
+import RestorePasswordActionCreators from './RestorePassword.actionCreators';
 
 // stores
-import SignUpStore from './SignUp.store';
+import RestorePasswordStore from './RestorePassword.store';
 
 //utils
 import bindAll from 'lodash/bindAll';
 import i18n from '../../utils/i18n';
 
-class SignUp extends React.Component {
+class RestorePassword extends React.Component {
 
   constructor(props) {
     super(props);
@@ -35,11 +35,11 @@ class SignUp extends React.Component {
   }
   
   componentWillMount() {
-    SignUpStore.addChangeListener(this._onChange);
+    RestorePasswordStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount() {
-    SignUpStore.removeChangeListener(this._onChange);
+    RestorePasswordStore.removeChangeListener(this._onChange);
   }
 
   _onChange() {
@@ -48,19 +48,19 @@ class SignUp extends React.Component {
   
   _getStateFromStores() {
     return {
-      ...SignUpStore.getState()
+      ...RestorePasswordStore.getState()
     };
   }
 
   _handleFieldChange(event) {
-    SignUpActionCreators.changeField(event.target.name, event.target.value);
+    RestorePasswordActionCreators.changeField(event.target.name, event.target.value);
   }
   
   _handleSubmit(event) {
     event.preventDefault();
     const phone = this.state.fields.find((item) => item.name === 'phone');
     const data = {phone: phone.value};
-    SignUpActionCreators.signUp(data);
+    RestorePasswordActionCreators.restorePassword(data);
   }
 
   render() {
@@ -70,7 +70,7 @@ class SignUp extends React.Component {
     return (
       <Grid className='flex-1'>
 	<Row className='text-center'>
-	  <h1>{i18n.t('SignUp.title')}</h1>
+	  <h1>{i18n.t('RestorePassword.title')}</h1>
 	</Row>
 	<Row>
 	  <Col md={6} mdOffset={3}>
@@ -102,7 +102,7 @@ class SignUp extends React.Component {
 		))}
 		<div className='text-right'>
 		  <Button type='submit' bsStyle='primary' disabled={!isEnabled || this.state.loading}>
-		    {this.state.loading ? <Loading /> : i18n.t('SignUp.submit')}
+		    {this.state.loading ? <Loading /> : i18n.t('RestorePassword.submit')}
 		  </Button>
 		</div>
 	      </Form>
@@ -114,4 +114,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default RestorePassword;
